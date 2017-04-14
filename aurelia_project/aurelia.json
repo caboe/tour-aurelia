@@ -48,11 +48,6 @@
     "valueConverters": "resources/value-converters",
     "bindingBehaviors": "resources/binding-behaviors"
   },
-//https://github.com/aurelia/cli/issues/296
-  "textProcessor": {
-    "displayName": "Text",
-    "source": "src/**/*.json"
-  },
   "testFramework": {
     "id": "jasmine",
     "displayName": "Jasmine"

@@ -1,4 +1,4 @@
-pages = {
+let pages = {
   etap: [
     {
       imageId: "Etappe 0",
@@ -44,4 +44,7 @@ pages = {
     }
   ]
 };
+
+export default pages;
+// console.log(pages)
 

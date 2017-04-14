@@ -1,10 +1,9 @@
-define('app',['exports', './navigation'], function (exports, _navigation) {
+define('app',['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.App = undefined;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -61,19 +60,53 @@ define('main',['exports', './environment'], function (exports, _environment) {
     });
   }
 });
-define('resources/index',["exports"], function (exports) {
+define('navigation',['exports', './src/page.js'], function (exports, _page) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.KeysValueConverter = exports.Navigation = undefined;
+
+  var _page2 = _interopRequireDefault(_page);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var Navigation = exports.Navigation = function Navigation() {
+    _classCallCheck(this, Navigation);
+
+    this.sections = _page2.default;
+  };
+
+  var KeysValueConverter = exports.KeysValueConverter = function () {
+    function KeysValueConverter() {
+      _classCallCheck(this, KeysValueConverter);
+    }
+
+    KeysValueConverter.prototype.toView = function toView(obj) {
+      return Reflect.ownKeys(obj);
+    };
+
+    return KeysValueConverter;
+  }();
+});
+define('src/page.js',["exports"], function (exports) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.configure = configure;
-  function configure(config) {}
-});
-define('page',[], function () {
-  "use strict";
-
-  pages = {
+  var pages = {
     etap: [{
       imageId: "Etappe 0",
       headline: "Mal kurz Uwe abholen",
@@ -112,63 +145,19 @@ define('page',[], function () {
       text: 'Nachdem wir die ursprüngliche Idee nach Peking zu radeln ad acta legen mussten, blieb uns für eine Alternative ein halbes Jahr Zeit an Vorbereitung. So begannen wir in der Zeit des Jahreswechsels mit der Grobplanung.<br> Es sollte wieder vor der eigenen Haustür losgehen. Statt `One way´ entschieden wir uns für einen Rundkurs. Damit stand fest, wir würden in Europa bleiben. Wir hätten auch um die Ostsee touren können, doch wir entschieden uns für einen Mix aus Revival unserer Tour von 1993 mit dem, was wir in einigen Regionen haben liegenlassen und mit der Aufnahme von etwas Neuem. Nachdem wir die geografischen Eckpunkte für unsere Tour gefunden und die dazwischen liegenden Lücken grob ausgefüllt hatten, setzte die Arbeitsteilung ein. Da Carsten eine Internetseite von dieser Tour im Auge hatte (Aua !) und in Hamburg als Frontend-Entwickler arbeitet, stand fest, wer da an der Internetseite rumbasteln wird.<br> Außerdem ist Carsten von uns beiden der „Fahrradmechaniker“, daher übernahm er die Korrespondenz mit einem Liegeradhersteller, da wir uns auf das Liegerad als Fahrradtyp geeinigt hatten und Uwe noch kein Liegerad besaß. Während Carsten sich um die technischen Details in puncto Liegerad und Grundgerüst der Internetseite kümmerte, bastelte Uwe an der Route, die dieses mal en Detail ausgearbeitet und mit allen wissenswerten Informationen über die zu durchfahrenden Orte und Regionen versehen werden sollte. <br> Drei Monate vergingen, dann stand nicht nur die Route Dank der im Internet auffindbarer Routenplaner, Touristikinformationsquellen und Berg- und Passfahrten Archive fest, sondern auch ein erstes Grobgerüst für die Internetseite war fertig. <br> Nach ständigem Austausch über Telefon und Internet kam es während der Ostertage in Hamburg zu einer folgenschweren Begegnung: „Uwe meets Liegerad!“ Erstmalig auf dem Liegerad, einem sog. High Racer, kippte Uwe einige Male stumpf um, aber schon nach einer halben Stunde ging es noch etwas wackelig auf eine kleine `sightseeing tour´ quer durch Hamburg.<br> In der Folgezeit wurden die Liegeräder für die Tour leicht modifiziert, die Ausrüstung teils erneuert und ergänzt, die Internetseite verfeinert und die ersten kleineren und größeren Trainingstouren absolviert. Nach einem Monat hatte Uwe knapp 2.500 Trainingskilometer in den Beinen, dann traf man sich in Goslar, um im Harz gezielt einige Höhenmeter zu sammeln. Auch weiterhin sorgte ständiger Kontakt via Internet und Telefon für den notwendigen Austausch. Dank einiger Freunde ließen sich einige Dinge auch in Abwesenheit aufrechterhalten, so dass wir dem Start am 13. Juni beruhigt entgegensehen konnten. Dann wurde noch ein Live-Ticker auf der Internetseite eingerichtet, um Freunden und Bekannte die Möglichkeit zu geben, unseren jeweiligen Aufenthaltsort von zu Hause aus verfolgen zu können.'
     }]
   };
+
+  exports.default = pages;
 });
-define('navigation',['exports', './src/page.js'], function (exports, _page) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.Navigation = undefined;
-
-  var _page2 = _interopRequireDefault(_page);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
-
-  var Navigation = exports.Navigation = function Navigation() {
-    _classCallCheck(this, Navigation);
-
-    console.log(window.pages.etap);
-    this.items = window.pages.etap;
-  };
-});
-define('todo',["exports"], function (exports) {
+define('resources/index',["exports"], function (exports) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
-
-  var Todo = exports.Todo = function Todo(description) {
-    _classCallCheck(this, Todo);
-
-    this.description = description;
-    this.done = false;
-  };
-});
-define('process-text',[], function () {
-  "use strict";
+  exports.configure = configure;
+  function configure(config) {}
 });
 define('text!app.html', ['module'], function(module) { module.exports = "<template><require from=\"./navigation\"></require><h1>${message}</h1><navigation></navigation></template>"; });
-define('text!custom.html', ['module'], function(module) { module.exports = "<template>foo</template>"; });
-define('text!navigation.html', ['module'], function(module) { module.exports = "<template><require from=\"./styles/navigation.css\"></require><div repeat.for=\"item of items\"><span>${item.imageId}</span></div></template>"; });
-define('text!styles.css', ['module'], function(module) { module.exports = "body {\n  background: red;\n}\n"; });
-define('text!styles/styles.css', ['module'], function(module) { module.exports = "body {\n  background: red;\n}\n"; });
 define('text!styles/navigation.css', ['module'], function(module) { module.exports = "body {\n  background: red;\n}\n"; });
+define('text!navigation.html', ['module'], function(module) { module.exports = "<template><require from=\"./styles/navigation.css\"></require><div repeat.for=\"section of sections  | keys\"><div repeat.for=\"item of sections[section]\"><span>${item.imageId}</span></div></div></template>"; });
 //# sourceMappingURL=app-bundle.js.map
