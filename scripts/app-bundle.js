@@ -1,5 +1,5 @@
-define('app',['exports'], function (exports) {
-  'use strict';
+define('app',["exports"], function (exports) {
+  "use strict";
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -13,8 +13,6 @@ define('app',['exports'], function (exports) {
 
   var App = exports.App = function App() {
     _classCallCheck(this, App);
-
-    this.message = 'Hello World!';
   };
 });
 define('environment',["exports"], function (exports) {
@@ -157,7 +155,8 @@ define('resources/index',["exports"], function (exports) {
   exports.configure = configure;
   function configure(config) {}
 });
-define('text!app.html', ['module'], function(module) { module.exports = "<template><require from=\"./navigation\"></require><h1>${message}</h1><navigation></navigation></template>"; });
-define('text!styles/navigation.css', ['module'], function(module) { module.exports = "body {\n  background: red;\n}\n"; });
-define('text!navigation.html', ['module'], function(module) { module.exports = "<template><require from=\"./styles/navigation.css\"></require><div repeat.for=\"section of sections  | keys\"><div repeat.for=\"item of sections[section]\"><span>${item.imageId}</span></div></div></template>"; });
+define('text!app.html', ['module'], function(module) { module.exports = "<template><require from=\"./styles/app.css\"></require><require from=\"./navigation\"></require><navigation></navigation></template>"; });
+define('text!styles/navigation.css', ['module'], function(module) { module.exports = ".navigation {\n  border-radius: 3px;\n  box-shadow: 0 0 1px #999;\n  padding: 12px;\n  display: inline-block;\n}\n"; });
+define('text!navigation.html', ['module'], function(module) { module.exports = "<template><require from=\"./styles/navigation.css\"></require><div class=\"navigation\"><div repeat.for=\"section of sections  | keys\"><div repeat.for=\"item of sections[section]\"><span>${item.imageId}</span></div></div></div></template>"; });
+define('text!styles/app.css', ['module'], function(module) { module.exports = "body {\n  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\n}\n"; });
 //# sourceMappingURL=app-bundle.js.map
