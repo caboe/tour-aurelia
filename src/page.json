@@ -1,0 +1,36 @@
+{
+  "etap": [
+    {
+      "imageId": "Etappe 0",
+      "headline": "Mal kurz Uwe abholen",
+      "etap": "0. Etappe: Hamburg - Oldenburg",
+      "routeURL": "http://bent-design.com/route/1.kml",
+      "text": "TExt 1",
+      "date": "Sa 12.6.: Hamburg - Buxtehude - Harsefeld - Gnarrenburg - Brake -Oldenburg",
+      "distance": 186.45,
+      "hm": 408
+    },
+    {
+      "imageId": "Etappe 1",
+      "headline": "Auf gehts",
+      "etap": "1. Etappe: Oldenburg - Detmold",
+      "routeURL": "http://bent-design.com/route/1.kml",
+      "text": "Text 2",
+      "date": "So 13.6.: Oldenburg - Wildeshausen - Herford - Detmold",
+      "distance": 189.59,
+      "hm": 624
+    }
+  ],
+  "prolog": [
+    {
+      "imageId": "Prolog",
+      "headline": "Wie alles begann",
+      "text": "Unsere Eurotour 2010 ist aus der Not geboren. Wir wollten eigentlich von Oldenburg (Uwe), bzw. von Hamburg (Carsten) `One Way´ nach Peking radeln und dafür mindestens vier Monate Zeit aufwenden. Leider schränkten uns unsere privaten und beruflichen Verpflichtungen so sehr ein, dass die Reise nicht länger als zwei Monate dauern durfte. Nun liegt für uns der Reiz einer Radreise darin, mit ihr möglichst an der eigenen Haustür zu beginnen. So musste eine auf zwei Monate begrenzte Alternative her.<br> Erfahrungen mit Radreisen haben wir beide schon seit längerem. So unternahm Uwe bereits im Jahr 1984 eine gut 6.500 km lange Tour, in dem er alleine von Oldenburg nach Portugal und retour fuhr, was er noch einige Male teils in Begleitung wiederholte. Carstens erste mehrtägige Radtour begann im Sommer 1993, als wir zum ersten Mal gemeinsam unterwegs waren. Vorgesehen war ein einmonatiger Portugalurlaub mit jeweils 14tägiger Hin- und Rückreise per Rad. Angekommen in unserem Zielort Caminha, in Nordportugal am Atlantik liegend, kam uns nach ein paar Tagen die Idee, die uns noch zur Verfügung stehende Zeit für eine verlängerte Rückreise zu nutzen. Ein Blick auf eine Landkarte im Kiosk neben Uwes Lieblingskaffee in Caminha zeigte, dass wir es zurück nach Oldenburg über Basel, Linz, Wien, Budapest, Lwow (Lemberg), Warschau, Kaliningrad und Danzig schaffen könnten. Auf diesem Wege führte uns dieser kleine ungeplante Umweg noch durch die Schweiz, Süddeutschland, Österreich, Ungarn, Slowakei, Ukraine und Polen. Als wir in Oldenburg ankamen, waren wir knapp über 9.000 km in 60 Tagen gefahren. Kurz vorher hatten wir während unserer Stippvisite in Verden (Aller), Uwes Geburtsort, einen Zirkel in einen alten Schulatlas gehauen, um mal zu sehen was 9.000 km Luftlinie von Oldenburg entfernt liegt (ungenaue Methode). Der vom Zirkel gezogene Strich lag auf Peking, so profan ergeben sich plötzlich Reiseziele (www.luftlinie.org kommt nur auf 7.604 km).<br> Seitdem machten wir beide immer wieder Urlaub mit dem Rad, doch die Umstände ermöglichten uns erst jetzt wieder eine lange Radtour gemeinsam zu unternehmen. Vor knapp zwei Jahren starteten wir die Planung der Tour `Oldenburg – Peking´. Als vor einem halben Jahr absehbar wurde, dass Carsten aus beruflichen Gründen nicht mehr als zwei Monate zur Verfügung hat, musste umdisponiert werden.<br><br> Für eine grobe Routenplanung galt es daher neue Eckpunkte zu formulieren:<br> Klar das es nach Nordportugal gehen sollte und dass ein Galão, das ist eine Mischung aus Espresso und Milch, der wie italienischer Latte macchiato üblicherweise in einem Glas serviert wird, in Uwes Stammkaffee in Caminha dazu gehört. Vor einigen Jahren nahm sich Uwe vor den Pico de Veleta (3.400 m) per Rad zu bezwingen, kam aber nicht dazu. Wenn wir schon in Granada sein werden, bietet sich uns auf dem Weg in die Região-Norte an, den höchsten Berg des portugiesischen Festlandes mitzunehmen, den Torre (1.993 m). Bei all unseren Pyrenäen-Überquerungen ging es noch nie per Rad über Andorra, auch in Tschechien sind wir beide noch nie gewesen, so wurde beides in die Route mit aufgenommen. Das würde uns dann auch nach Österreich und Italien führen, zumal die Alpen auf Carstens Wunschzettel standen. Die Dolomiten wurden erst einmal mir einem Fragezeichen versehen. Das Skagerrak musste den französischen Alpen weichen, da der Reiz des Hochgebirges für uns einfach größer ist. Der Wunsch nach einem entspannten Ausrollen fügten dann dem Ganzen Belgien und die Niederlande hinzu. Fertig war die Eurotour 2010."
+    },
+    {
+      "imageId": "Start",
+      "headline": "Vorbereitungen",
+      "text": "Nachdem wir die ursprüngliche Idee nach Peking zu radeln ad acta legen mussten, blieb uns für eine Alternative ein halbes Jahr Zeit an Vorbereitung. So begannen wir in der Zeit des Jahreswechsels mit der Grobplanung.<br> Es sollte wieder vor der eigenen Haustür losgehen. Statt `One way´ entschieden wir uns für einen Rundkurs. Damit stand fest, wir würden in Europa bleiben. Wir hätten auch um die Ostsee touren können, doch wir entschieden uns für einen Mix aus Revival unserer Tour von 1993 mit dem, was wir in einigen Regionen haben liegenlassen und mit der Aufnahme von etwas Neuem. Nachdem wir die geografischen Eckpunkte für unsere Tour gefunden und die dazwischen liegenden Lücken grob ausgefüllt hatten, setzte die Arbeitsteilung ein. Da Carsten eine Internetseite von dieser Tour im Auge hatte (Aua !) und in Hamburg als Frontend-Entwickler arbeitet, stand fest, wer da an der Internetseite rumbasteln wird.<br> Außerdem ist Carsten von uns beiden der „Fahrradmechaniker“, daher übernahm er die Korrespondenz mit einem Liegeradhersteller, da wir uns auf das Liegerad als Fahrradtyp geeinigt hatten und Uwe noch kein Liegerad besaß. Während Carsten sich um die technischen Details in puncto Liegerad und Grundgerüst der Internetseite kümmerte, bastelte Uwe an der Route, die dieses mal en Detail ausgearbeitet und mit allen wissenswerten Informationen über die zu durchfahrenden Orte und Regionen versehen werden sollte. <br> Drei Monate vergingen, dann stand nicht nur die Route Dank der im Internet auffindbarer Routenplaner, Touristikinformationsquellen und Berg- und Passfahrten Archive fest, sondern auch ein erstes Grobgerüst für die Internetseite war fertig. <br> Nach ständigem Austausch über Telefon und Internet kam es während der Ostertage in Hamburg zu einer folgenschweren Begegnung: „Uwe meets Liegerad!“ Erstmalig auf dem Liegerad, einem sog. High Racer, kippte Uwe einige Male stumpf um, aber schon nach einer halben Stunde ging es noch etwas wackelig auf eine kleine `sightseeing tour´ quer durch Hamburg.<br> In der Folgezeit wurden die Liegeräder für die Tour leicht modifiziert, die Ausrüstung teils erneuert und ergänzt, die Internetseite verfeinert und die ersten kleineren und größeren Trainingstouren absolviert. Nach einem Monat hatte Uwe knapp 2.500 Trainingskilometer in den Beinen, dann traf man sich in Goslar, um im Harz gezielt einige Höhenmeter zu sammeln. Auch weiterhin sorgte ständiger Kontakt via Internet und Telefon für den notwendigen Austausch. Dank einiger Freunde ließen sich einige Dinge auch in Abwesenheit aufrechterhalten, so dass wir dem Start am 13. Juni beruhigt entgegensehen konnten. Dann wurde noch ein Live-Ticker auf der Internetseite eingerichtet, um Freunden und Bekannte die Möglichkeit zu geben, unseren jeweiligen Aufenthaltsort von zu Hause aus verfolgen zu können."
+    }
+  ]
+}
