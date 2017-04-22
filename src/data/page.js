@@ -1,4 +1,5 @@
-let pages = {
+//TODO for some reasons, ES5 is required here and therefore is in global namespace
+pages = {
   etap: [
     {
       imageId: "Etappe 0",
@@ -45,6 +46,6 @@ let pages = {
   ]
 };
 
-export default pages;
+// export default pages;
 // console.log(pages)
 

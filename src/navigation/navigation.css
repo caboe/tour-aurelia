@@ -1,6 +1,6 @@
 .navigation {
   border-radius: 3px;
-  box-shadow: 0 0 1px #999;
+  box-shadow: 0 0 1px #999 inset;
   padding: 12px;
   display: inline-block;
 }

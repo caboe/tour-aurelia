@@ -1,11 +1,11 @@
-import pages from './src/page.js'
+import pages from '../src/data/page.js'
 //TODO
-// import pages from './src/page.json!json';
+// import pages from './src/data/page.json!json';
 
 export class Navigation {
   constructor(){
     // console.log(window.pages.etap);
-    this.sections = pages;
+    this.sections = window.pages;
   }
 }
 
