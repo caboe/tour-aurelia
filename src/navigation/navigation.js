@@ -1,12 +1,9 @@
-import pages from '../src/data/page.js'
-//TODO
-// import pages from './src/data/page.json!json';
+import {bindable} from 'aurelia-framework';
 
 export class Navigation {
-  constructor(){
-    // console.log(window.pages.etap);
-    this.sections = window.pages;
-  }
+  @bindable sections;
+
+  constructor(){}
 }
 
 export class KeysValueConverter {
