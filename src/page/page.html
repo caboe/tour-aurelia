@@ -3,5 +3,11 @@
     <div class="page">
         <h2>${currentPage.etap}</h2>
         <h1>${currentPage.headline}</h1>
+        <p innerhtml="${currentPage.text | sanitizeHTML}"></p>
+        <div>${currentPage.date}</div>
+        <div>
+            <span>Distance: ${currentPage.distance}</span>
+            <span>Hight Meter: ${currentPage.hm}</span>
+        </div>
     </div>
 </template>
