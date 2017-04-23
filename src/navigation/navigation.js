@@ -1,13 +1,23 @@
 import {bindable} from 'aurelia-framework';
 
-export class Navigation {
-  @bindable sections;
+import {inject} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
 
-  constructor(){}
+@inject(EventAggregator)
+export class Navigation {
+    @bindable sections;
+
+    constructor(eventAggregator) {
+        this.eventAggregator = eventAggregator;
+    }
+
+    navigateTo(navigatePath) {
+        this.eventAggregator.publish('navigate', navigatePath);
+    }
 }
 
 export class KeysValueConverter {
-  toView(obj) {
-    return Reflect.ownKeys(obj);
-  }
+    toView(obj) {
+        return Reflect.ownKeys(obj);
+    }
 }

@@ -1,22 +1,46 @@
-define('app',['exports', 'data/pages'], function (exports, _pages) {
-  'use strict';
+define('app',['exports', 'data/pages', 'aurelia-framework', 'aurelia-event-aggregator'], function (exports, _pages, _aureliaFramework, _aureliaEventAggregator) {
+    'use strict';
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.App = undefined;
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.App = undefined;
 
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
     }
-  }
 
-  var App = exports.App = function App() {
-    _classCallCheck(this, App);
+    var _dec, _class;
 
-    this.sections = _pages.pages;
-  };
+    var App = exports.App = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregator.EventAggregator), _dec(_class = function () {
+        function App(eventAggregator) {
+            _classCallCheck(this, App);
+
+            this.sections = _pages.pages;
+            this.navigatePath = ['etap', 0];
+            this.currentPage = this.getCurrentPage();
+            this.navigateToPage(this.navigatePath);
+            this.eventAggregator = eventAggregator;
+            var subscription = this.eventAggregator.subscribe('navigate', this.navigateToPage.bind(this));
+        }
+
+        App.prototype.navigateToPage = function navigateToPage(path) {
+            this.navigatePath = path;
+            this.currentPage = this.sections[this.navigatePath[0]][this.navigatePath[1]];
+        };
+
+        App.prototype.getNavigatePath = function getNavigatePath() {
+            return this.navigatePath;
+        };
+
+        App.prototype.getCurrentPage = function getCurrentPage() {
+            return this.sections[this.navigatePath[0]][this.navigatePath[1]];
+        };
+
+        return App;
+    }()) || _class);
 });
 define('environment',["exports"], function (exports) {
   "use strict";
@@ -150,102 +174,163 @@ define('data/pages',["exports"], function (exports) {
     }]
   };
 });
-define('navigation/navigation',['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
-  'use strict';
+define('navigation/navigation',['exports', 'aurelia-framework', 'aurelia-event-aggregator'], function (exports, _aureliaFramework, _aureliaEventAggregator) {
+    'use strict';
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.KeysValueConverter = exports.Navigation = undefined;
-
-  function _initDefineProp(target, property, descriptor, context) {
-    if (!descriptor) return;
-    Object.defineProperty(target, property, {
-      enumerable: descriptor.enumerable,
-      configurable: descriptor.configurable,
-      writable: descriptor.writable,
-      value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+    Object.defineProperty(exports, "__esModule", {
+        value: true
     });
-  }
+    exports.KeysValueConverter = exports.Navigation = undefined;
 
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
-
-  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-    var desc = {};
-    Object['ke' + 'ys'](descriptor).forEach(function (key) {
-      desc[key] = descriptor[key];
-    });
-    desc.enumerable = !!desc.enumerable;
-    desc.configurable = !!desc.configurable;
-
-    if ('value' in desc || desc.initializer) {
-      desc.writable = true;
+    function _initDefineProp(target, property, descriptor, context) {
+        if (!descriptor) return;
+        Object.defineProperty(target, property, {
+            enumerable: descriptor.enumerable,
+            configurable: descriptor.configurable,
+            writable: descriptor.writable,
+            value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+        });
     }
 
-    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-      return decorator(target, property, desc) || desc;
-    }, desc);
-
-    if (context && desc.initializer !== void 0) {
-      desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-      desc.initializer = undefined;
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
     }
 
-    if (desc.initializer === void 0) {
-      Object['define' + 'Property'](target, property, desc);
-      desc = null;
+    function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+        var desc = {};
+        Object['ke' + 'ys'](descriptor).forEach(function (key) {
+            desc[key] = descriptor[key];
+        });
+        desc.enumerable = !!desc.enumerable;
+        desc.configurable = !!desc.configurable;
+
+        if ('value' in desc || desc.initializer) {
+            desc.writable = true;
+        }
+
+        desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+            return decorator(target, property, desc) || desc;
+        }, desc);
+
+        if (context && desc.initializer !== void 0) {
+            desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+            desc.initializer = undefined;
+        }
+
+        if (desc.initializer === void 0) {
+            Object['define' + 'Property'](target, property, desc);
+            desc = null;
+        }
+
+        return desc;
     }
 
-    return desc;
-  }
-
-  function _initializerWarningHelper(descriptor, context) {
-    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
-  }
-
-  var _desc, _value, _class, _descriptor;
-
-  var Navigation = exports.Navigation = (_class = function Navigation() {
-    _classCallCheck(this, Navigation);
-
-    _initDefineProp(this, 'sections', _descriptor, this);
-  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'sections', [_aureliaFramework.bindable], {
-    enumerable: true,
-    initializer: null
-  })), _class);
-
-  var KeysValueConverter = exports.KeysValueConverter = function () {
-    function KeysValueConverter() {
-      _classCallCheck(this, KeysValueConverter);
+    function _initializerWarningHelper(descriptor, context) {
+        throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
     }
 
-    KeysValueConverter.prototype.toView = function toView(obj) {
-      return Reflect.ownKeys(obj);
-    };
+    var _dec, _class, _desc, _value, _class2, _descriptor;
 
-    return KeysValueConverter;
-  }();
+    var Navigation = exports.Navigation = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregator.EventAggregator), _dec(_class = (_class2 = function () {
+        function Navigation(eventAggregator) {
+            _classCallCheck(this, Navigation);
+
+            _initDefineProp(this, 'sections', _descriptor, this);
+
+            this.eventAggregator = eventAggregator;
+        }
+
+        Navigation.prototype.navigateTo = function navigateTo(navigatePath) {
+            this.eventAggregator.publish('navigate', navigatePath);
+        };
+
+        return Navigation;
+    }(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'sections', [_aureliaFramework.bindable], {
+        enumerable: true,
+        initializer: null
+    })), _class2)) || _class);
+
+    var KeysValueConverter = exports.KeysValueConverter = function () {
+        function KeysValueConverter() {
+            _classCallCheck(this, KeysValueConverter);
+        }
+
+        KeysValueConverter.prototype.toView = function toView(obj) {
+            return Reflect.ownKeys(obj);
+        };
+
+        return KeysValueConverter;
+    }();
 });
-define('page/page',["exports"], function (exports) {
-  "use strict";
+define('page/page',['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
+    'use strict';
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.Page = undefined;
 
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
+    function _initDefineProp(target, property, descriptor, context) {
+        if (!descriptor) return;
+        Object.defineProperty(target, property, {
+            enumerable: descriptor.enumerable,
+            configurable: descriptor.configurable,
+            writable: descriptor.writable,
+            value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+        });
     }
-  }
 
-  var Page = exports.Page = function Page() {
-    _classCallCheck(this, Page);
-  };
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+        var desc = {};
+        Object['ke' + 'ys'](descriptor).forEach(function (key) {
+            desc[key] = descriptor[key];
+        });
+        desc.enumerable = !!desc.enumerable;
+        desc.configurable = !!desc.configurable;
+
+        if ('value' in desc || desc.initializer) {
+            desc.writable = true;
+        }
+
+        desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+            return decorator(target, property, desc) || desc;
+        }, desc);
+
+        if (context && desc.initializer !== void 0) {
+            desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+            desc.initializer = undefined;
+        }
+
+        if (desc.initializer === void 0) {
+            Object['define' + 'Property'](target, property, desc);
+            desc = null;
+        }
+
+        return desc;
+    }
+
+    function _initializerWarningHelper(descriptor, context) {
+        throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+    }
+
+    var _desc, _value, _class, _descriptor;
+
+    var Page = exports.Page = (_class = function Page() {
+        _classCallCheck(this, Page);
+
+        _initDefineProp(this, 'currentPage', _descriptor, this);
+    }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'currentPage', [_aureliaFramework.bindable], {
+        enumerable: true,
+        initializer: null
+    })), _class);
 });
 define('resources/index',["exports"], function (exports) {
   "use strict";
@@ -256,10 +341,10 @@ define('resources/index',["exports"], function (exports) {
   exports.configure = configure;
   function configure(config) {}
 });
-define('text!app.html', ['module'], function(module) { module.exports = "<template><require from=\"./styles/app.css\"></require><require from=\"./navigation/navigation\"></require><require from=\"./page/page\"></require><navigation sections.bind=\"sections\"></navigation><page></page></template>"; });
+define('text!app.html', ['module'], function(module) { module.exports = "<template><require from=\"./styles/app.css\"></require><require from=\"./navigation/navigation\"></require><require from=\"./page/page\"></require><navigation sections.bind=\"sections\"></navigation><page current-page.bind=\"currentPage\"></page></template>"; });
 define('text!navigation/navigation.css', ['module'], function(module) { module.exports = ".navigation {\n  border-radius: 3px;\n  box-shadow: 0 0 1px #999 inset;\n  padding: 12px;\n  display: inline-block;\n}\n"; });
-define('text!navigation/navigation.html', ['module'], function(module) { module.exports = "<template><require from=\"./navigation.css\"></require><div class=\"navigation\"><div repeat.for=\"section of sections  | keys\"><div repeat.for=\"item of sections[section]\"><span>${item.imageId}</span></div></div></div></template>"; });
+define('text!navigation/navigation.html', ['module'], function(module) { module.exports = "<template><require from=\"./navigation.css\"></require><div class=\"navigation\"><div repeat.for=\"section of sections  | keys\"><div repeat.for=\"item of sections[section]\"><span click.trigger=\"navigateTo([section, $index])\">${item.imageId}</span></div></div></div></template>"; });
 define('text!page/page.css', ['module'], function(module) { module.exports = ".page {\n  box-shadow: 0 0 1px #999 inset;\n  padding: 12px;\n  display: inline-block;\n}\n"; });
-define('text!page/page.html', ['module'], function(module) { module.exports = "<template><require from=\"./page.css\"></require><div class=\"page\">PAGE</div></template>"; });
+define('text!page/page.html', ['module'], function(module) { module.exports = "<template><require from=\"./page.css\"></require><div class=\"page\"><h2>${currentPage.etap}</h2><h1>${currentPage.headline}</h1></div></template>"; });
 define('text!styles/app.css', ['module'], function(module) { module.exports = "body {\n  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\n}\n"; });
 //# sourceMappingURL=app-bundle.js.map
