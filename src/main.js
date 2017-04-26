@@ -1,17 +1,34 @@
 import environment from './environment';
+import {I18N} from 'aurelia-i18n';
+import Backend from 'i18next-xhr-backend';
 
 export function configure(aurelia) {
-  aurelia.use
-    .standardConfiguration()
-    .feature('resources');
+    aurelia.use
+        .standardConfiguration()
+        .developmentLogging()
+        .feature('resources')
+        .plugin('aurelia-i18n', (instance) => {
+            let aliases = ['t', 'i18n'];
+            instance.i18next.use(Backend);
+            return instance.setup({
+                backend: {
+                    loadPath: './locales/{{lng}}/{{ns}}.json',
+                },
+                ns:['common'],
+                attributes: aliases,
+                lng: 'de',
+                fallbackLng: 'de',
+                debug: true
+            });
+        });
 
-  if (environment.debug) {
-    aurelia.use.developmentLogging();
-  }
+    if (environment.debug) {
+        aurelia.use.developmentLogging();
+    }
 
-  if (environment.testing) {
-    aurelia.use.plugin('aurelia-testing');
-  }
+    if (environment.testing) {
+        aurelia.use.plugin('aurelia-testing');
+    }
 
-  aurelia.start().then(() => aurelia.setRoot());
+    aurelia.start().then(() => aurelia.setRoot());
 }

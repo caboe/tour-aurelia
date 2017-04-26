@@ -7,7 +7,7 @@
         <div>${currentPage.date}</div>
         <div>
             <span>Distance: ${currentPage.distance}</span>
-            <span>Hight Meter: ${currentPage.hm}</span>
+            <span>${'common:height_meter' | t:{hm: currentPage.hm}}</span>
         </div>
     </div>
 </template>
