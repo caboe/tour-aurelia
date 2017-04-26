@@ -313,10 +313,10 @@ define('resources/index',["exports"], function (exports) {
   exports.configure = configure;
   function configure(config) {}
 });
-define('text!app.html', ['module'], function(module) { module.exports = "<template><require from=\"./styles/app.css\"></require><require from=\"./navigation/navigation\"></require><require from=\"./page/page\"></require><navigation sections.bind=\"sections\"></navigation><page current-page.bind=\"currentPage\"></page></template>"; });
-define('text!navigation/navigation.css', ['module'], function(module) { module.exports = ".navigation {\n  border-radius: 3px;\n  box-shadow: 0 0 1px #999 inset;\n  padding: 12px;\n  display: inline-block;\n}\n"; });
+define('text!app.html', ['module'], function(module) { module.exports = "<template><require from=\"./app.css\"></require><require from=\"./navigation/navigation\"></require><require from=\"./page/page\"></require><navigation sections.bind=\"sections\"></navigation><page current-page.bind=\"currentPage\"></page></template>"; });
+define('text!app.css', ['module'], function(module) { module.exports = "body {\n  font-family: Helvetica Neue, Helvetica, Arial, sans-serif; }\n"; });
 define('text!navigation/navigation.html', ['module'], function(module) { module.exports = "<template><require from=\"./navigation.css\"></require><div class=\"navigation\"><div repeat.for=\"section of sections  | keys\"><div repeat.for=\"item of sections[section]\"><span click.trigger=\"navigateTo([section, $index])\">${item.imageId}</span></div></div></div></template>"; });
-define('text!page/page.css', ['module'], function(module) { module.exports = ".page {\n    box-shadow: 0 0 1px #999 inset;\n    padding: 12px;\n    display: inline-block;\n    max-width: 480px;\n}\n"; });
 define('text!page/page.html', ['module'], function(module) { module.exports = "<template><require from=\"./page.css\"></require><div class=\"page\"><h2>${currentPage.etap}</h2><h1>${currentPage.headline}</h1><p innerhtml=\"${currentPage.text | sanitizeHTML}\"></p><div>${currentPage.date}</div><div><span>Distance: ${currentPage.distance}</span> <span>${'common:height_meter' | t:{hm: currentPage.hm}}</span></div></div></template>"; });
-define('text!styles/app.css', ['module'], function(module) { module.exports = "body {\n  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\n}\n"; });
+define('text!navigation/navigation.css', ['module'], function(module) { module.exports = ".navigation {\n  border-radius: 3px;\n  box-shadow: 0 0 1px #999 inset;\n  padding: 12px;\n  display: inline-block; }\n"; });
+define('text!page/page.css', ['module'], function(module) { module.exports = ".page {\n  box-shadow: 0 0 1px #999 inset;\n  padding: 12px;\n  display: inline-block;\n  max-width: 480px; }\n"; });
 //# sourceMappingURL=app-bundle.js.map
