@@ -2,6 +2,7 @@
     <require from="./navigation.css"></require>
     <div class="navigation">
         <div repeat.for="section of sections  | keys">
+            <h1>${'navigation:' + section | t}</h1>
             <div repeat.for="item of sections[section]">
                 <span click.trigger="navigateTo([section, $index])">
                     ${item.imageId}

@@ -14,7 +14,7 @@ export function configure(aurelia) {
                 backend: {
                     loadPath: './locales/{{lng}}/{{ns}}.json',
                 },
-                ns:['common'],
+                ns:['common','navigation'],
                 attributes: aliases,
                 lng: 'de',
                 fallbackLng: 'de',

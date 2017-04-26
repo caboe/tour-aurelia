@@ -6,7 +6,7 @@
         <p innerhtml="${currentPage.text | sanitizeHTML}"></p>
         <div>${currentPage.date}</div>
         <div>
-            <span>Distance: ${currentPage.distance}</span>
+            <span>${'common:distance' | t:{distance: currentPage.distance}}</span>
             <span>${'common:height_meter' | t:{hm: currentPage.hm}}</span>
         </div>
     </div>
