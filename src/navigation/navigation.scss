@@ -3,6 +3,20 @@
   box-shadow: 0 0 1px #999 inset;
   padding: 12px;
   display: inline-block;
+  color: #999999;
+
+  .section.active {
+    h1 {
+      color: #000;
+    }
+  }
+
+  .item {
+    cursor: pointer;
+    &.active {
+      color: red;
+    }
+  }
 }
 
 .all {

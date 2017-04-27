@@ -1,13 +1,13 @@
 <template>
     <require from="./page.css"></require>
     <div class="page">
-        <h2>${currentPage.etap}</h2>
-        <h1>${currentPage.headline}</h1>
-        <p innerhtml="${currentPage.text | sanitizeHTML}"></p>
-        <div>${currentPage.date}</div>
+        <h2>${navigationService.currentPage.etap}</h2>
+        <h1>${navigationService.currentPage.headline}</h1>
+        <p innerhtml="${navigationService.currentPage.text | sanitizeHTML}"></p>
+        <div>${navigationService.currentPage.date}</div>
         <div>
-            <span>${'common:distance' | t:{distance: currentPage.distance}}</span>
-            <span>${'common:height_meter' | t:{hm: currentPage.hm}}</span>
+            <span>${'common:distance' | t:{distance: navigationService.currentPage.distance}}</span>
+            <span>${'common:height_meter' | t:{hm: navigationService.currentPage.hm}}</span>
         </div>
     </div>
 </template>

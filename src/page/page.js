@@ -1,5 +1,14 @@
-import {bindable} from 'aurelia-framework';
+import {bindable, inject} from 'aurelia-framework';
+import {NavigationService} from 'navigation-service';
 
+@inject(NavigationService)
 export class Page {
-    @bindable currentPage;
+    constructor(navigationService) {
+        this.navigationService = navigationService;
+        this.currentPage = this.navigationService.currentPage;
+    }
+
+    getCurrentPage(){
+        return this.navigationService.currentPage;
+    }
 }

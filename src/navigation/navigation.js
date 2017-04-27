@@ -1,19 +1,24 @@
-import {bindable} from 'aurelia-framework';
+import {bindable, inject} from 'aurelia-framework';
+import {NavigationService} from 'navigation-service';
 
-import {inject} from 'aurelia-framework';
-import {EventAggregator} from 'aurelia-event-aggregator';
-
-@inject(EventAggregator)
+@inject(NavigationService)
 export class Navigation {
-    @bindable sections;
+    constructor(navigationService) {
+        this.navigationService = navigationService;
+        this.sections = this.navigationService.sections;
+    }
 
-    constructor(eventAggregator) {
-        this.eventAggregator = eventAggregator;
+    get currentSection(){
+        return this.navigationService.section;
+    }
+    get currentItem(){
+        return this.navigationService.page;
     }
 
     navigateTo(navigatePath) {
-        this.eventAggregator.publish('navigate', navigatePath);
+        this.navigationService.navigateToPage(navigatePath);
     }
+
 }
 
 export class KeysValueConverter {
