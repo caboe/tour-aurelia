@@ -5,18 +5,27 @@
   display: inline-block;
   color: #999999;
 
-  .section.active {
+  .section {
+    .items {
+      display: none;
+    }
+    &.active {
+      .items {
+        display: block;
+      }
+    }
     h1 {
       color: #000;
     }
   }
 
-  .item {
-    cursor: pointer;
-    &.active {
-      color: red;
-    }
+.item {
+  cursor: pointer;
+  &.active {
+    color: red;
   }
+}
+
 }
 
 .all {

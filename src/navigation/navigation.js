@@ -15,6 +15,9 @@ export class Navigation {
         return this.navigationService.page;
     }
 
+    showSection(section){
+        this.navigationService.navigateToFirstOfSection(section);
+    }
     navigateTo(navigatePath) {
         this.navigationService.navigateToPage(navigatePath);
     }

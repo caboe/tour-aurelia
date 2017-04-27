@@ -161,6 +161,10 @@ define('navigation/navigation',['exports', 'aurelia-framework', 'navigation-serv
             this.sections = this.navigationService.sections;
         }
 
+        Navigation.prototype.showSection = function showSection(section) {
+            this.navigationService.navigateToFirstOfSection(section);
+        };
+
         Navigation.prototype.navigateTo = function navigateTo(navigatePath) {
             this.navigationService.navigateToPage(navigatePath);
         };
@@ -333,6 +337,10 @@ define('navigation-service',['exports', 'data/pages', 'aurelia-framework'], func
             this.currentSection = this.section;
         };
 
+        NavigationService.prototype.navigateToFirstOfSection = function navigateToFirstOfSection(section) {
+            this.navigateToPage([section, 0]);
+        };
+
         _createClass(NavigationService, [{
             key: 'path',
             get: function get() {
@@ -355,8 +363,8 @@ define('navigation-service',['exports', 'data/pages', 'aurelia-framework'], func
 });
 define('text!app.html', ['module'], function(module) { module.exports = "<template><require from=\"./app.css\"></require><require from=\"./navigation/navigation\"></require><require from=\"./page/page\"></require><div class=\"all\"><navigation></navigation><page></page></div></template>"; });
 define('text!app.css', ['module'], function(module) { module.exports = "html {\n  font-size: 10px;\n  font-family: Helvetica Neue, Helvetica, Arial, sans-serif; }\n\nbody {\n  font-size: 12px; }\n"; });
-define('text!navigation/navigation.html', ['module'], function(module) { module.exports = "<template><require from=\"./navigation.css\"></require><div class=\"navigation\"><div repeat.for=\"section of sections  | keys\" class=\"section ${section == currentSection?'active':''}\"><h1>${'navigation:' + section | t}</h1><div repeat.for=\"item of sections[section]\"><span click.trigger=\"navigateTo([section, $index])\" class=\"item ${currentItem == item?'active':''}\">${item.imageId}</span></div></div></div></template>"; });
-define('text!navigation/navigation.css', ['module'], function(module) { module.exports = ".navigation {\n  border-radius: 3px;\n  box-shadow: 0 0 1px #999 inset;\n  padding: 12px;\n  display: inline-block;\n  color: #999999; }\n  .navigation .section.active h1 {\n    color: #000; }\n  .navigation .item {\n    cursor: pointer; }\n    .navigation .item.active {\n      color: red; }\n\n.all {\n  display: flex; }\n"; });
+define('text!navigation/navigation.html', ['module'], function(module) { module.exports = "<template><require from=\"./navigation.css\"></require><div class=\"navigation\"><div repeat.for=\"section of sections  | keys\" class=\"section ${section == currentSection?'active':''}\"><h1 click.trigger=\"showSection(section)\">${'navigation:' + section | t}</h1><div class=\"items\"><div repeat.for=\"item of sections[section]\" click.trigger=\"navigateTo([section, $index])\" class=\"item ${currentItem == item?'active':''}\">${item.imageId}</div></div></div></div></template>"; });
+define('text!navigation/navigation.css', ['module'], function(module) { module.exports = ".navigation {\n  border-radius: 3px;\n  box-shadow: 0 0 1px #999 inset;\n  padding: 12px;\n  display: inline-block;\n  color: #999999; }\n  .navigation .section .items {\n    display: none; }\n  .navigation .section.active .items {\n    display: block; }\n  .navigation .section h1 {\n    color: #000; }\n  .navigation .item {\n    cursor: pointer; }\n    .navigation .item.active {\n      color: red; }\n\n.all {\n  display: flex; }\n"; });
 define('text!page/page.html', ['module'], function(module) { module.exports = "<template><require from=\"./page.css\"></require><div class=\"page\"><h2>${navigationService.currentPage.etap}</h2><h1>${navigationService.currentPage.headline}</h1><p innerhtml=\"${navigationService.currentPage.text | sanitizeHTML}\"></p><div>${navigationService.currentPage.date}</div><div><span>${'common:distance' | t:{distance: navigationService.currentPage.distance}}</span> <span>${'common:height_meter' | t:{hm: navigationService.currentPage.hm}}</span></div></div></template>"; });
 define('text!page/page.css', ['module'], function(module) { module.exports = ".page {\n  box-shadow: 0 0 1px #999 inset;\n  padding: 12px;\n  display: inline-block;\n  max-width: 480px; }\n  .page h1 {\n    font-size: 1.6rem; }\n  .page h2 {\n    font-size: 1.2rem; }\n"; });
 //# sourceMappingURL=app-bundle.js.map
