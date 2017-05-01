@@ -19,19 +19,10 @@ export class Navigation {
     get currentSection(){
         return this.navigationService.section;
     }
-    get currentItem(){
-        return this.navigationService.page;
-    }
 
     @computedFrom('navigationActive')
     get navigationVisible(){
         return this.navigationActive;
-    }
-
-
-    navigateTo(navigatePath) {
-        this.navigationService.navigateToPage(navigatePath);
-        this.eventAggregator.publish('showFade', {active: false});
     }
 
     hide(){

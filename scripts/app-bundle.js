@@ -314,11 +314,6 @@ define('navigation/navigation',['exports', 'aurelia-framework', 'navigation-serv
             }.bind(this));
         }
 
-        Navigation.prototype.navigateTo = function navigateTo(navigatePath) {
-            this.navigationService.navigateToPage(navigatePath);
-            this.eventAggregator.publish('showFade', { active: false });
-        };
-
         Navigation.prototype.hide = function hide() {
             this.navigationActive = false;
             this.eventAggregator.publish('showFade', { active: this.navigationActive });
@@ -337,11 +332,6 @@ define('navigation/navigation',['exports', 'aurelia-framework', 'navigation-serv
             key: 'currentSection',
             get: function get() {
                 return this.navigationService.section;
-            }
-        }, {
-            key: 'currentItem',
-            get: function get() {
-                return this.navigationService.page;
             }
         }, {
             key: 'navigationVisible',
@@ -430,12 +420,130 @@ define('resources/index',["exports"], function (exports) {
   exports.configure = configure;
   function configure(config) {}
 });
+define('navigation/section/default',['exports', 'aurelia-framework', 'navigation-service', 'aurelia-event-aggregator'], function (exports, _aureliaFramework, _navigationService, _aureliaEventAggregator) {
+    'use strict';
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.Default = undefined;
+
+    function _initDefineProp(target, property, descriptor, context) {
+        if (!descriptor) return;
+        Object.defineProperty(target, property, {
+            enumerable: descriptor.enumerable,
+            configurable: descriptor.configurable,
+            writable: descriptor.writable,
+            value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+        });
+    }
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var _createClass = function () {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+            }
+        }
+
+        return function (Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+        };
+    }();
+
+    function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+        var desc = {};
+        Object['ke' + 'ys'](descriptor).forEach(function (key) {
+            desc[key] = descriptor[key];
+        });
+        desc.enumerable = !!desc.enumerable;
+        desc.configurable = !!desc.configurable;
+
+        if ('value' in desc || desc.initializer) {
+            desc.writable = true;
+        }
+
+        desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+            return decorator(target, property, desc) || desc;
+        }, desc);
+
+        if (context && desc.initializer !== void 0) {
+            desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+            desc.initializer = undefined;
+        }
+
+        if (desc.initializer === void 0) {
+            Object['define' + 'Property'](target, property, desc);
+            desc = null;
+        }
+
+        return desc;
+    }
+
+    function _initializerWarningHelper(descriptor, context) {
+        throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+    }
+
+    var _dec, _class, _desc, _value, _class2, _descriptor, _descriptor2;
+
+    var Default = exports.Default = (_dec = (0, _aureliaFramework.inject)(_navigationService.NavigationService, _aureliaEventAggregator.EventAggregator), _dec(_class = (_class2 = function () {
+        function Default(navigationService, EventAggregator) {
+            _classCallCheck(this, Default);
+
+            _initDefineProp(this, 'section', _descriptor, this);
+
+            _initDefineProp(this, 'sectionId', _descriptor2, this);
+
+            this.navigationService = navigationService;
+            this.eventAggregator = EventAggregator;
+            this.navigationActive = false;
+            this.eventAggregator.subscribe('showFade', function (response) {
+                if (!response.active) {
+                    this.navigationActive = response.active;
+                }
+            }.bind(this));
+        }
+
+        Default.prototype.navigateTo = function navigateTo(navigatePath) {
+            this.navigationService.navigateToPage(navigatePath);
+            this.eventAggregator.publish('showFade', { active: false });
+        };
+
+        _createClass(Default, [{
+            key: 'currentItem',
+            get: function get() {
+                return this.navigationService.page;
+            }
+        }]);
+
+        return Default;
+    }(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'section', [_aureliaFramework.bindable], {
+        enumerable: true,
+        initializer: null
+    }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, 'sectionId', [_aureliaFramework.bindable], {
+        enumerable: true,
+        initializer: null
+    })), _class2)) || _class);
+});
 define('text!app.html', ['module'], function(module) { module.exports = "<template><require from=\"./app.css\"></require><require from=\"./page/page\"></require><require from=\"header/header\"></require><div class=\"all\"><header></header><page></page></div><div click.trigger=\"hideFade()\" class.bind=\"showFade ? 'fade' : ''\"></div></template>"; });
 define('text!app.css', ['module'], function(module) { module.exports = "html {\n  font-size: 10px;\n  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\n  height: 100%; }\n\nbody {\n  background: linear-gradient(0deg, #9c9, #9cf);\n  font-size: 12px;\n  height: 100%;\n  margin: 1.2rem; }\n\n.fade {\n  z-index: 999;\n  background: rgba(0, 0, 0, 0.3);\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0; }\n"; });
 define('text!header/header.html', ['module'], function(module) { module.exports = "<template><require from=\"./header.css\"></require><require from=\"navigation/navigation\"></require><div class=\"header\"><navigation></navigation><h1 class=\"title\">Eurotour 2010</h1><div class=\"step\"><div class=\"back\">-</div><div class=\"forward\">+</div></div></div></template>"; });
-define('text!navigation/navigation.html', ['module'], function(module) { module.exports = "<template><require from=\"./navigation.css\"></require><nav><div click.delegate=\"toggleNavigation()\">NAV</div><div class.bind=\"navigationVisible ? 'active navigation' : 'navigation'\"><div repeat.for=\"section of sections  | keys\" class=\"section ${section == currentSection?'active':''}\"><h1 click.trigger=\"showSection(section)\">${'navigation:' + section | t}</h1><div class=\"items\"><div repeat.for=\"item of sections[section]\" click.trigger=\"navigateTo([section, $index])\" class=\"item ${currentItem == item?'active':''}\">${item.title}</div></div></div></div></nav></template>"; });
+define('text!navigation/navigation.html', ['module'], function(module) { module.exports = "<template><require from=\"./navigation.css\"></require><require from=\"./section/default\"></require><nav><div click.delegate=\"toggleNavigation()\">NAV</div><div class.bind=\"navigationVisible ? 'active navigation' : 'navigation'\"><div repeat.for=\"section of sections  | keys\" class=\"section ${section == currentSection?'active':''}\"><h1>${'navigation:' + section | t}</h1><default section-id.bind=\"section\" section.bind=\"sections[section]\" navigateto.bind=\"navigateTo\"></default></div></div></nav></template>"; });
 define('text!header/header.css', ['module'], function(module) { module.exports = ".header {\n  background: rgba(255, 255, 255, 0.4);\n  line-height: 3rem;\n  border-radius: 21px;\n  margin: 6px;\n  padding: 6px 12px;\n  display: flex;\n  justify-content: space-between; }\n  .header .title {\n    margin: 0; }\n  .header .back, .header .forward {\n    display: inline-block;\n    width: 3rem;\n    height: 3rem; }\n"; });
 define('text!page/page.html', ['module'], function(module) { module.exports = "<template><require from=\"./page.css\"></require><div class=\"page\"><h2>${navigationService.currentPage.etap}</h2><h1>${navigationService.currentPage.headline}</h1><p innerhtml=\"${navigationService.currentPage.text | sanitizeHTML}\"></p><div>${navigationService.currentPage.date}</div><div><span>${'common:distance' | t:{distance: navigationService.currentPage.distance}}</span> <span>${'common:height_meter' | t:{hm: navigationService.currentPage.hm}}</span></div></div></template>"; });
 define('text!navigation/navigation.css', ['module'], function(module) { module.exports = "nav {\n  position: relative;\n  z-index: 1000; }\n\n.navigation {\n  box-shadow: 0 0 1px #999 inset;\n  padding: 12px;\n  color: #000;\n  background: rgba(255, 255, 255, 0.95);\n  border-radius: .6rem;\n  display: none;\n  position: absolute;\n  top: 100%;\n  z-index: 9999;\n  justify-content: space-between; }\n  .navigation.active {\n    display: flex; }\n  .navigation .section {\n    margin: 1.2rem; }\n    .navigation .section h1 {\n      margin: 0 0 .6rem; }\n  .navigation .item {\n    cursor: pointer;\n    font-weight: bold; }\n    .navigation .item.active {\n      color: red; }\n"; });
 define('text!page/page.css', ['module'], function(module) { module.exports = ".page {\n  padding: 12px;\n  display: inline-block;\n  background: rgba(255, 255, 255, 0.6);\n  border-radius: .6rem; }\n  .page h1 {\n    font-size: 1.6rem; }\n  .page h2 {\n    font-size: 1.2rem; }\n"; });
+define('text!navigation/section/default.html', ['module'], function(module) { module.exports = "<template><div class=\"items\"><div repeat.for=\"item of section\" click.trigger=\"navigateTo([sectionId, $index])\" class=\"item ${currentItem == item?'active':''}\">${item.title}</div></div></template>"; });
+define('text!navigation/section/default.css', ['module'], function(module) { module.exports = ""; });
 //# sourceMappingURL=app-bundle.js.map

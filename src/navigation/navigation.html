@@ -1,18 +1,22 @@
 <template>
     <require from="./navigation.css"></require>
+    <require from="./section/default"></require>
     <nav>
         <div click.delegate="toggleNavigation()">
             NAV
         </div>
         <div class.bind="navigationVisible ? 'active navigation' : 'navigation'">
             <div repeat.for="section of sections  | keys" class="section ${section == currentSection?'active':''}">
-                <h1 click.trigger="showSection(section)">${'navigation:' + section | t}</h1>
+                <h1>${'navigation:' + section | t}</h1>
+<!--
                 <div class="items">
                     <div repeat.for="item of sections[section]" click.trigger="navigateTo([section, $index])"
                          class="item ${currentItem == item?'active':''}">
                         ${item.title}
                     </div>
                 </div>
+-->
+              <default section-id.bind="section" section.bind="sections[section]" navigateTo.bind="navigateTo"></default>
             </div>
         </div>
     </nav>
