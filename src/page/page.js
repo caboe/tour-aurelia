@@ -11,4 +11,9 @@ export class Page {
     getCurrentPage(){
         return this.navigationService.currentPage;
     }
+
+    get legacyPage(){
+        return this.navigationService.currentPage;
+
+    }
 }

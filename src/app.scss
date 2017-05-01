@@ -1,8 +1,22 @@
 html {
   font-size: 10px;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  height: 100%;
 }
 
 body {
+  background: linear-gradient(0deg, #9c9, #9cf);
   font-size: 12px;
+  height: 100%;
+  margin: 1.2rem;
+}
+
+.fade {
+  z-index: 999;
+  background: rgba(0,0,0,.3);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }

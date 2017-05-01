@@ -1,13 +1,19 @@
 <template>
     <require from="./navigation.css"></require>
-    <div class="navigation">
-        <div repeat.for="section of sections  | keys" class="section ${section == currentSection?'active':''}">
-            <h1 click.trigger="showSection(section)">${'navigation:' + section | t}</h1>
-            <div class="items">
-                <div repeat.for="item of sections[section]" click.trigger="navigateTo([section, $index])" class="item ${currentItem == item?'active':''}">
-                    ${item.imageId}
+    <nav>
+        <div click.delegate="toggleNavigation()">
+            NAV
+        </div>
+        <div class.bind="navigationVisible ? 'active navigation' : 'navigation'">
+            <div repeat.for="section of sections  | keys" class="section ${section == currentSection?'active':''}">
+                <h1 click.trigger="showSection(section)">${'navigation:' + section | t}</h1>
+                <div class="items">
+                    <div repeat.for="item of sections[section]" click.trigger="navigateTo([section, $index])"
+                         class="item ${currentItem == item?'active':''}">
+                        ${item.title}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </nav>
 </template>

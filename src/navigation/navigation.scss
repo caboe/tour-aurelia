@@ -1,33 +1,38 @@
+nav {
+  position: relative;
+  z-index: 1000;
+}
+
 .navigation {
-  border-radius: 3px;
   box-shadow: 0 0 1px #999 inset;
   padding: 12px;
-  display: inline-block;
-  color: #999999;
+  color: #000;
+  background: rgba(255, 255, 255, .95);
+  border-radius: .6rem;
+  display: none;
+  position: absolute;
+  top: 100%;
+  z-index: 9999;
+  justify-content: space-between;
+
+  &.active {
+    display: flex;
+  }
 
   .section {
-    .items {
-      display: none;
-    }
-    &.active {
-      .items {
-        display: block;
-      }
-    }
+    margin: 1.2rem;
+
     h1 {
-      color: #000;
+      margin: 0 0 .6rem;
     }
   }
 
-.item {
-  cursor: pointer;
-  &.active {
-    color: red;
+  .item {
+    cursor: pointer;
+    font-weight: bold;
+    &.active {
+      color: red;
+    }
   }
 }
 
-}
-
-.all {
-  display: flex;
-}

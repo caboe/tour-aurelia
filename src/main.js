@@ -18,7 +18,7 @@ export function configure(aurelia) {
                 attributes: aliases,
                 lng: 'de',
                 fallbackLng: 'de',
-                debug: true
+                debug: false
             });
         });
 
