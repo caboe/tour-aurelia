@@ -1,14 +1,38 @@
 .page {
-    padding: 12px;
-    display: inline-block;
-    background: rgba(256,256,256,.6);
-    border-radius: .6rem;
+  background: rgba(256, 256, 256, .6);
+  border-radius: .6rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0 3rem;
 
-    h1 {
-        font-size: 1.6rem;
+  > .flexChild {
+    flex: 1 0 32rem;
+    padding: 1rem;
+  }
+
+  .report {
+    font-size: 12px;
+    text-align: justify;
+
+    @media only screen and (min-width: 768px) {
+      font-size: 13px;
+    }
+    @media only screen and (min-width: 1280px) {
+      font-size: 14px;
     }
 
-    h2 {
-        font-size: 1.2rem;
-    }
+  }
+  .slideshowContainer {
+    flex-grow: 4;
+    flex-basis: 50vw;
+  }
+  h1 {
+    font-size: 1.6rem;
+    text-align: right;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
 }

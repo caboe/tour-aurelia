@@ -3,7 +3,7 @@ import {NavigationService} from 'navigation-service';
 import { EventAggregator } from 'aurelia-event-aggregator';
 
 @inject(NavigationService, EventAggregator)
-export class Default {
+export class StageRenderer {
     @bindable sectionId;
     constructor(navigationService, EventAggregator) {
         this.navigationActive = false;

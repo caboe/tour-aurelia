@@ -30,6 +30,10 @@ export  class NavigationService {
         return this.navigatePath[0];
     }
 
+    getSectionForPath(section){
+        return this.sections[section];
+    }
+
     navigateToFirstOfSection(section){
         this.navigateToPage([section,0])
     }

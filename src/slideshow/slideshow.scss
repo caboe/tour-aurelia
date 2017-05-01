@@ -1,0 +1,19 @@
+.slideshow {
+  position: relative;
+
+  &::after {
+    content: url("data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==");
+    display: block;
+    width: 100%;
+  }
+
+  .slideshow_content {
+    background: lightcoral;
+    position: absolute;
+    display: flex;
+    top:0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}

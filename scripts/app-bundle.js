@@ -139,6 +139,10 @@ define('navigation-service',['exports', 'data/pages', 'aurelia-framework'], func
             this.currentSection = this.section;
         };
 
+        NavigationService.prototype.getSectionForPath = function getSectionForPath(section) {
+            return this.sections[section];
+        };
+
         NavigationService.prototype.navigateToFirstOfSection = function navigateToFirstOfSection(section) {
             this.navigateToPage([section, 0]);
         };
@@ -170,6 +174,22 @@ define('data/pages',["exports"], function (exports) {
         value: true
     });
     var pages = exports.pages = {
+        prolog: [{
+            imageId: "Prolog",
+            title: "Prolog",
+            headline: "Wie alles begann",
+            text: 'Unsere Eurotour 2010 ist aus der Not geboren. Wir wollten eigentlich von Oldenburg (Uwe), bzw. von Hamburg (Carsten) `One Way´ nach Peking radeln und dafür mindestens vier Monate Zeit aufwenden. Leider schränkten uns unsere privaten und beruflichen Verpflichtungen so sehr ein, dass die Reise nicht länger als zwei Monate dauern durfte. Nun liegt für uns der Reiz einer Radreise darin, mit ihr möglichst an der eigenen Haustür zu beginnen. So musste eine auf zwei Monate begrenzte Alternative her.<br> Erfahrungen mit Radreisen haben wir beide schon seit längerem. So unternahm Uwe bereits im Jahr 1984 eine gut 6.500 km lange Tour, in dem er alleine von Oldenburg nach Portugal und retour fuhr, was er noch einige Male teils in Begleitung wiederholte. Carstens erste mehrtägige Radtour begann im Sommer 1993, als wir zum ersten Mal gemeinsam unterwegs waren. Vorgesehen war ein einmonatiger Portugalurlaub mit jeweils 14tägiger Hin- und Rückreise per Rad. Angekommen in unserem Zielort Caminha, in Nordportugal am Atlantik liegend, kam uns nach ein paar Tagen die Idee, die uns noch zur Verfügung stehende Zeit für eine verlängerte Rückreise zu nutzen. Ein Blick auf eine Landkarte im Kiosk neben Uwes Lieblingskaffee in Caminha zeigte, dass wir es zurück nach Oldenburg über Basel, Linz, Wien, Budapest, Lwow (Lemberg), Warschau, Kaliningrad und Danzig schaffen könnten. Auf diesem Wege führte uns dieser kleine ungeplante Umweg noch durch die Schweiz, Süddeutschland, Österreich, Ungarn, Slowakei, Ukraine und Polen. Als wir in Oldenburg ankamen, waren wir knapp über 9.000 km in 60 Tagen gefahren. Kurz vorher hatten wir während unserer Stippvisite in Verden (Aller), Uwes Geburtsort, einen Zirkel in einen alten Schulatlas gehauen, um mal zu sehen was 9.000 km Luftlinie von Oldenburg entfernt liegt (ungenaue Methode). Der vom Zirkel gezogene Strich lag auf Peking, so profan ergeben sich plötzlich Reiseziele (www.luftlinie.org kommt nur auf 7.604 km).<br> Seitdem machten wir beide immer wieder Urlaub mit dem Rad, doch die Umstände ermöglichten uns erst jetzt wieder eine lange Radtour gemeinsam zu unternehmen. Vor knapp zwei Jahren starteten wir die Planung der Tour `Oldenburg – Peking´. Als vor einem halben Jahr absehbar wurde, dass Carsten aus beruflichen Gründen nicht mehr als zwei Monate zur Verfügung hat, musste umdisponiert werden.<br><br> Für eine grobe Routenplanung galt es daher neue Eckpunkte zu formulieren:<br> Klar das es nach Nordportugal gehen sollte und dass ein Galão, das ist eine Mischung aus Espresso und Milch, der wie italienischer Latte macchiato üblicherweise in einem Glas serviert wird, in Uwes Stammkaffee in Caminha dazu gehört. Vor einigen Jahren nahm sich Uwe vor den Pico de Veleta (3.400 m) per Rad zu bezwingen, kam aber nicht dazu. Wenn wir schon in Granada sein werden, bietet sich uns auf dem Weg in die Região-Norte an, den höchsten Berg des portugiesischen Festlandes mitzunehmen, den Torre (1.993 m). Bei all unseren Pyrenäen-Überquerungen ging es noch nie per Rad über Andorra, auch in Tschechien sind wir beide noch nie gewesen, so wurde beides in die Route mit aufgenommen. Das würde uns dann auch nach Österreich und Italien führen, zumal die Alpen auf Carstens Wunschzettel standen. Die Dolomiten wurden erst einmal mir einem Fragezeichen versehen. Das Skagerrak musste den französischen Alpen weichen, da der Reiz des Hochgebirges für uns einfach größer ist. Der Wunsch nach einem entspannten Ausrollen fügten dann dem Ganzen Belgien und die Niederlande hinzu. Fertig war die Eurotour 2010.'
+        }, {
+            imageId: "Start",
+            title: "Start",
+            headline: "Vorbereitungen",
+            text: 'Nachdem wir die ursprüngliche Idee nach Peking zu radeln ad acta legen mussten, blieb uns für eine Alternative ein halbes Jahr Zeit an Vorbereitung. So begannen wir in der Zeit des Jahreswechsels mit der Grobplanung.<br> Es sollte wieder vor der eigenen Haustür losgehen. Statt `One way´ entschieden wir uns für einen Rundkurs. Damit stand fest, wir würden in Europa bleiben. Wir hätten auch um die Ostsee touren können, doch wir entschieden uns für einen Mix aus Revival unserer Tour von 1993 mit dem, was wir in einigen Regionen haben liegenlassen und mit der Aufnahme von etwas Neuem. Nachdem wir die geografischen Eckpunkte für unsere Tour gefunden und die dazwischen liegenden Lücken grob ausgefüllt hatten, setzte die Arbeitsteilung ein. Da Carsten eine Internetseite von dieser Tour im Auge hatte (Aua !) und in Hamburg als Frontend-Entwickler arbeitet, stand fest, wer da an der Internetseite rumbasteln wird.<br> Außerdem ist Carsten von uns beiden der „Fahrradmechaniker“, daher übernahm er die Korrespondenz mit einem Liegeradhersteller, da wir uns auf das Liegerad als Fahrradtyp geeinigt hatten und Uwe noch kein Liegerad besaß. Während Carsten sich um die technischen Details in puncto Liegerad und Grundgerüst der Internetseite kümmerte, bastelte Uwe an der Route, die dieses mal en Detail ausgearbeitet und mit allen wissenswerten Informationen über die zu durchfahrenden Orte und Regionen versehen werden sollte. <br> Drei Monate vergingen, dann stand nicht nur die Route Dank der im Internet auffindbarer Routenplaner, Touristikinformationsquellen und Berg- und Passfahrten Archive fest, sondern auch ein erstes Grobgerüst für die Internetseite war fertig. <br> Nach ständigem Austausch über Telefon und Internet kam es während der Ostertage in Hamburg zu einer folgenschweren Begegnung: „Uwe meets Liegerad!“ Erstmalig auf dem Liegerad, einem sog. High Racer, kippte Uwe einige Male stumpf um, aber schon nach einer halben Stunde ging es noch etwas wackelig auf eine kleine `sightseeing tour´ quer durch Hamburg.<br> In der Folgezeit wurden die Liegeräder für die Tour leicht modifiziert, die Ausrüstung teils erneuert und ergänzt, die Internetseite verfeinert und die ersten kleineren und größeren Trainingstouren absolviert. Nach einem Monat hatte Uwe knapp 2.500 Trainingskilometer in den Beinen, dann traf man sich in Goslar, um im Harz gezielt einige Höhenmeter zu sammeln. Auch weiterhin sorgte ständiger Kontakt via Internet und Telefon für den notwendigen Austausch. Dank einiger Freunde ließen sich einige Dinge auch in Abwesenheit aufrechterhalten, so dass wir dem Start am 13. Juni beruhigt entgegensehen konnten. Dann wurde noch ein Live-Ticker auf der Internetseite eingerichtet, um Freunden und Bekannte die Möglichkeit zu geben, unseren jeweiligen Aufenthaltsort von zu Hause aus verfolgen zu können.'
+        }],
+        article: [{
+            title: "Start",
+            headline: "Vorbereitungen",
+            text: 'Nachdem wir die ursprüngliche Idee nach Peking zu radeln ad acta legen mussten, blieb uns für eine Alternative ein halbes Jahr Zeit an Vorbereitung. So begannen wir in der Zeit des Jahreswechsels mit der Grobplanung.<br> Es sollte wieder vor der eigenen Haustür losgehen. Statt `One way´ entschieden wir uns für einen Rundkurs. Damit stand fest, wir würden in Europa bleiben. Wir hätten auch um die Ostsee touren können, doch wir entschieden uns für einen Mix aus Revival unserer Tour von 1993 mit dem, was wir in einigen Regionen haben liegenlassen und mit der Aufnahme von etwas Neuem. Nachdem wir die geografischen Eckpunkte für unsere Tour gefunden und die dazwischen liegenden Lücken grob ausgefüllt hatten, setzte die Arbeitsteilung ein. Da Carsten eine Internetseite von dieser Tour im Auge hatte (Aua !) und in Hamburg als Frontend-Entwickler arbeitet, stand fest, wer da an der Internetseite rumbasteln wird.<br> Außerdem ist Carsten von uns beiden der „Fahrradmechaniker“, daher übernahm er die Korrespondenz mit einem Liegeradhersteller, da wir uns auf das Liegerad als Fahrradtyp geeinigt hatten und Uwe noch kein Liegerad besaß. Während Carsten sich um die technischen Details in puncto Liegerad und Grundgerüst der Internetseite kümmerte, bastelte Uwe an der Route, die dieses mal en Detail ausgearbeitet und mit allen wissenswerten Informationen über die zu durchfahrenden Orte und Regionen versehen werden sollte. <br> Drei Monate vergingen, dann stand nicht nur die Route Dank der im Internet auffindbarer Routenplaner, Touristikinformationsquellen und Berg- und Passfahrten Archive fest, sondern auch ein erstes Grobgerüst für die Internetseite war fertig. <br> Nach ständigem Austausch über Telefon und Internet kam es während der Ostertage in Hamburg zu einer folgenschweren Begegnung: „Uwe meets Liegerad!“ Erstmalig auf dem Liegerad, einem sog. High Racer, kippte Uwe einige Male stumpf um, aber schon nach einer halben Stunde ging es noch etwas wackelig auf eine kleine `sightseeing tour´ quer durch Hamburg.<br> In der Folgezeit wurden die Liegeräder für die Tour leicht modifiziert, die Ausrüstung teils erneuert und ergänzt, die Internetseite verfeinert und die ersten kleineren und größeren Trainingstouren absolviert. Nach einem Monat hatte Uwe knapp 2.500 Trainingskilometer in den Beinen, dann traf man sich in Goslar, um im Harz gezielt einige Höhenmeter zu sammeln. Auch weiterhin sorgte ständiger Kontakt via Internet und Telefon für den notwendigen Austausch. Dank einiger Freunde ließen sich einige Dinge auch in Abwesenheit aufrechterhalten, so dass wir dem Start am 13. Juni beruhigt entgegensehen konnten. Dann wurde noch ein Live-Ticker auf der Internetseite eingerichtet, um Freunden und Bekannte die Möglichkeit zu geben, unseren jeweiligen Aufenthaltsort von zu Hause aus verfolgen zu können.'
+        }],
         etap: [{
             imageId: "Etappe 0",
             title: "Etappe 0",
@@ -200,22 +220,6 @@ define('data/pages',["exports"], function (exports) {
             date: "Mo 14.6.: Detmold (Pivitsheide) - Rimbeck -  Fritzlar - Mandern (Bad Wildungen)",
             distance: 146.44,
             hm: 1181
-        }],
-        prolog: [{
-            imageId: "Prolog",
-            title: "Prolog",
-            headline: "Wie alles begann",
-            text: 'Unsere Eurotour 2010 ist aus der Not geboren. Wir wollten eigentlich von Oldenburg (Uwe), bzw. von Hamburg (Carsten) `One Way´ nach Peking radeln und dafür mindestens vier Monate Zeit aufwenden. Leider schränkten uns unsere privaten und beruflichen Verpflichtungen so sehr ein, dass die Reise nicht länger als zwei Monate dauern durfte. Nun liegt für uns der Reiz einer Radreise darin, mit ihr möglichst an der eigenen Haustür zu beginnen. So musste eine auf zwei Monate begrenzte Alternative her.<br> Erfahrungen mit Radreisen haben wir beide schon seit längerem. So unternahm Uwe bereits im Jahr 1984 eine gut 6.500 km lange Tour, in dem er alleine von Oldenburg nach Portugal und retour fuhr, was er noch einige Male teils in Begleitung wiederholte. Carstens erste mehrtägige Radtour begann im Sommer 1993, als wir zum ersten Mal gemeinsam unterwegs waren. Vorgesehen war ein einmonatiger Portugalurlaub mit jeweils 14tägiger Hin- und Rückreise per Rad. Angekommen in unserem Zielort Caminha, in Nordportugal am Atlantik liegend, kam uns nach ein paar Tagen die Idee, die uns noch zur Verfügung stehende Zeit für eine verlängerte Rückreise zu nutzen. Ein Blick auf eine Landkarte im Kiosk neben Uwes Lieblingskaffee in Caminha zeigte, dass wir es zurück nach Oldenburg über Basel, Linz, Wien, Budapest, Lwow (Lemberg), Warschau, Kaliningrad und Danzig schaffen könnten. Auf diesem Wege führte uns dieser kleine ungeplante Umweg noch durch die Schweiz, Süddeutschland, Österreich, Ungarn, Slowakei, Ukraine und Polen. Als wir in Oldenburg ankamen, waren wir knapp über 9.000 km in 60 Tagen gefahren. Kurz vorher hatten wir während unserer Stippvisite in Verden (Aller), Uwes Geburtsort, einen Zirkel in einen alten Schulatlas gehauen, um mal zu sehen was 9.000 km Luftlinie von Oldenburg entfernt liegt (ungenaue Methode). Der vom Zirkel gezogene Strich lag auf Peking, so profan ergeben sich plötzlich Reiseziele (www.luftlinie.org kommt nur auf 7.604 km).<br> Seitdem machten wir beide immer wieder Urlaub mit dem Rad, doch die Umstände ermöglichten uns erst jetzt wieder eine lange Radtour gemeinsam zu unternehmen. Vor knapp zwei Jahren starteten wir die Planung der Tour `Oldenburg – Peking´. Als vor einem halben Jahr absehbar wurde, dass Carsten aus beruflichen Gründen nicht mehr als zwei Monate zur Verfügung hat, musste umdisponiert werden.<br><br> Für eine grobe Routenplanung galt es daher neue Eckpunkte zu formulieren:<br> Klar das es nach Nordportugal gehen sollte und dass ein Galão, das ist eine Mischung aus Espresso und Milch, der wie italienischer Latte macchiato üblicherweise in einem Glas serviert wird, in Uwes Stammkaffee in Caminha dazu gehört. Vor einigen Jahren nahm sich Uwe vor den Pico de Veleta (3.400 m) per Rad zu bezwingen, kam aber nicht dazu. Wenn wir schon in Granada sein werden, bietet sich uns auf dem Weg in die Região-Norte an, den höchsten Berg des portugiesischen Festlandes mitzunehmen, den Torre (1.993 m). Bei all unseren Pyrenäen-Überquerungen ging es noch nie per Rad über Andorra, auch in Tschechien sind wir beide noch nie gewesen, so wurde beides in die Route mit aufgenommen. Das würde uns dann auch nach Österreich und Italien führen, zumal die Alpen auf Carstens Wunschzettel standen. Die Dolomiten wurden erst einmal mir einem Fragezeichen versehen. Das Skagerrak musste den französischen Alpen weichen, da der Reiz des Hochgebirges für uns einfach größer ist. Der Wunsch nach einem entspannten Ausrollen fügten dann dem Ganzen Belgien und die Niederlande hinzu. Fertig war die Eurotour 2010.'
-        }, {
-            imageId: "Start",
-            title: "Start",
-            headline: "Vorbereitungen",
-            text: 'Nachdem wir die ursprüngliche Idee nach Peking zu radeln ad acta legen mussten, blieb uns für eine Alternative ein halbes Jahr Zeit an Vorbereitung. So begannen wir in der Zeit des Jahreswechsels mit der Grobplanung.<br> Es sollte wieder vor der eigenen Haustür losgehen. Statt `One way´ entschieden wir uns für einen Rundkurs. Damit stand fest, wir würden in Europa bleiben. Wir hätten auch um die Ostsee touren können, doch wir entschieden uns für einen Mix aus Revival unserer Tour von 1993 mit dem, was wir in einigen Regionen haben liegenlassen und mit der Aufnahme von etwas Neuem. Nachdem wir die geografischen Eckpunkte für unsere Tour gefunden und die dazwischen liegenden Lücken grob ausgefüllt hatten, setzte die Arbeitsteilung ein. Da Carsten eine Internetseite von dieser Tour im Auge hatte (Aua !) und in Hamburg als Frontend-Entwickler arbeitet, stand fest, wer da an der Internetseite rumbasteln wird.<br> Außerdem ist Carsten von uns beiden der „Fahrradmechaniker“, daher übernahm er die Korrespondenz mit einem Liegeradhersteller, da wir uns auf das Liegerad als Fahrradtyp geeinigt hatten und Uwe noch kein Liegerad besaß. Während Carsten sich um die technischen Details in puncto Liegerad und Grundgerüst der Internetseite kümmerte, bastelte Uwe an der Route, die dieses mal en Detail ausgearbeitet und mit allen wissenswerten Informationen über die zu durchfahrenden Orte und Regionen versehen werden sollte. <br> Drei Monate vergingen, dann stand nicht nur die Route Dank der im Internet auffindbarer Routenplaner, Touristikinformationsquellen und Berg- und Passfahrten Archive fest, sondern auch ein erstes Grobgerüst für die Internetseite war fertig. <br> Nach ständigem Austausch über Telefon und Internet kam es während der Ostertage in Hamburg zu einer folgenschweren Begegnung: „Uwe meets Liegerad!“ Erstmalig auf dem Liegerad, einem sog. High Racer, kippte Uwe einige Male stumpf um, aber schon nach einer halben Stunde ging es noch etwas wackelig auf eine kleine `sightseeing tour´ quer durch Hamburg.<br> In der Folgezeit wurden die Liegeräder für die Tour leicht modifiziert, die Ausrüstung teils erneuert und ergänzt, die Internetseite verfeinert und die ersten kleineren und größeren Trainingstouren absolviert. Nach einem Monat hatte Uwe knapp 2.500 Trainingskilometer in den Beinen, dann traf man sich in Goslar, um im Harz gezielt einige Höhenmeter zu sammeln. Auch weiterhin sorgte ständiger Kontakt via Internet und Telefon für den notwendigen Austausch. Dank einiger Freunde ließen sich einige Dinge auch in Abwesenheit aufrechterhalten, so dass wir dem Start am 13. Juni beruhigt entgegensehen konnten. Dann wurde noch ein Live-Ticker auf der Internetseite eingerichtet, um Freunden und Bekannte die Möglichkeit zu geben, unseren jeweiligen Aufenthaltsort von zu Hause aus verfolgen zu können.'
-        }],
-        article: [{
-            title: "Start",
-            headline: "Vorbereitungen",
-            text: 'Nachdem wir die ursprüngliche Idee nach Peking zu radeln ad acta legen mussten, blieb uns für eine Alternative ein halbes Jahr Zeit an Vorbereitung. So begannen wir in der Zeit des Jahreswechsels mit der Grobplanung.<br> Es sollte wieder vor der eigenen Haustür losgehen. Statt `One way´ entschieden wir uns für einen Rundkurs. Damit stand fest, wir würden in Europa bleiben. Wir hätten auch um die Ostsee touren können, doch wir entschieden uns für einen Mix aus Revival unserer Tour von 1993 mit dem, was wir in einigen Regionen haben liegenlassen und mit der Aufnahme von etwas Neuem. Nachdem wir die geografischen Eckpunkte für unsere Tour gefunden und die dazwischen liegenden Lücken grob ausgefüllt hatten, setzte die Arbeitsteilung ein. Da Carsten eine Internetseite von dieser Tour im Auge hatte (Aua !) und in Hamburg als Frontend-Entwickler arbeitet, stand fest, wer da an der Internetseite rumbasteln wird.<br> Außerdem ist Carsten von uns beiden der „Fahrradmechaniker“, daher übernahm er die Korrespondenz mit einem Liegeradhersteller, da wir uns auf das Liegerad als Fahrradtyp geeinigt hatten und Uwe noch kein Liegerad besaß. Während Carsten sich um die technischen Details in puncto Liegerad und Grundgerüst der Internetseite kümmerte, bastelte Uwe an der Route, die dieses mal en Detail ausgearbeitet und mit allen wissenswerten Informationen über die zu durchfahrenden Orte und Regionen versehen werden sollte. <br> Drei Monate vergingen, dann stand nicht nur die Route Dank der im Internet auffindbarer Routenplaner, Touristikinformationsquellen und Berg- und Passfahrten Archive fest, sondern auch ein erstes Grobgerüst für die Internetseite war fertig. <br> Nach ständigem Austausch über Telefon und Internet kam es während der Ostertage in Hamburg zu einer folgenschweren Begegnung: „Uwe meets Liegerad!“ Erstmalig auf dem Liegerad, einem sog. High Racer, kippte Uwe einige Male stumpf um, aber schon nach einer halben Stunde ging es noch etwas wackelig auf eine kleine `sightseeing tour´ quer durch Hamburg.<br> In der Folgezeit wurden die Liegeräder für die Tour leicht modifiziert, die Ausrüstung teils erneuert und ergänzt, die Internetseite verfeinert und die ersten kleineren und größeren Trainingstouren absolviert. Nach einem Monat hatte Uwe knapp 2.500 Trainingskilometer in den Beinen, dann traf man sich in Goslar, um im Harz gezielt einige Höhenmeter zu sammeln. Auch weiterhin sorgte ständiger Kontakt via Internet und Telefon für den notwendigen Austausch. Dank einiger Freunde ließen sich einige Dinge auch in Abwesenheit aufrechterhalten, so dass wir dem Start am 13. Juni beruhigt entgegensehen konnten. Dann wurde noch ein Live-Ticker auf der Internetseite eingerichtet, um Freunden und Bekannte die Möglichkeit zu geben, unseren jeweiligen Aufenthaltsort von zu Hause aus verfolgen zu können.'
         }]
     };
 });
@@ -495,22 +499,20 @@ define('navigation/section/default',['exports', 'aurelia-framework', 'navigation
         throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
     }
 
-    var _dec, _class, _desc, _value, _class2, _descriptor, _descriptor2;
+    var _dec, _class, _desc, _value, _class2, _descriptor;
 
     var Default = exports.Default = (_dec = (0, _aureliaFramework.inject)(_navigationService.NavigationService, _aureliaEventAggregator.EventAggregator), _dec(_class = (_class2 = function () {
         function Default(navigationService, EventAggregator) {
             _classCallCheck(this, Default);
 
-            _initDefineProp(this, 'section', _descriptor, this);
+            _initDefineProp(this, 'sectionId', _descriptor, this);
 
-            _initDefineProp(this, 'sectionId', _descriptor2, this);
-
+            this.navigationActive = false;
             this.navigationService = navigationService;
             this.eventAggregator = EventAggregator;
-            this.navigationActive = false;
             this.eventAggregator.subscribe('showFade', function (response) {
                 if (!response.active) {
-                    this.navigationActive = response.active;
+                    this.navigationActive = false;
                 }
             }.bind(this));
         }
@@ -525,25 +527,165 @@ define('navigation/section/default',['exports', 'aurelia-framework', 'navigation
             get: function get() {
                 return this.navigationService.page;
             }
+        }, {
+            key: 'section',
+            get: function get() {
+                return this.navigationService.getSectionForPath(this.sectionId);
+            }
         }]);
 
         return Default;
-    }(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'section', [_aureliaFramework.bindable], {
-        enumerable: true,
-        initializer: null
-    }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, 'sectionId', [_aureliaFramework.bindable], {
+    }(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'sectionId', [_aureliaFramework.bindable], {
         enumerable: true,
         initializer: null
     })), _class2)) || _class);
 });
+define('navigation/section/stageRenderer',['exports', 'aurelia-framework', 'navigation-service', 'aurelia-event-aggregator'], function (exports, _aureliaFramework, _navigationService, _aureliaEventAggregator) {
+    'use strict';
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.StageRenderer = undefined;
+
+    function _initDefineProp(target, property, descriptor, context) {
+        if (!descriptor) return;
+        Object.defineProperty(target, property, {
+            enumerable: descriptor.enumerable,
+            configurable: descriptor.configurable,
+            writable: descriptor.writable,
+            value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+        });
+    }
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var _createClass = function () {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+            }
+        }
+
+        return function (Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+        };
+    }();
+
+    function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+        var desc = {};
+        Object['ke' + 'ys'](descriptor).forEach(function (key) {
+            desc[key] = descriptor[key];
+        });
+        desc.enumerable = !!desc.enumerable;
+        desc.configurable = !!desc.configurable;
+
+        if ('value' in desc || desc.initializer) {
+            desc.writable = true;
+        }
+
+        desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+            return decorator(target, property, desc) || desc;
+        }, desc);
+
+        if (context && desc.initializer !== void 0) {
+            desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+            desc.initializer = undefined;
+        }
+
+        if (desc.initializer === void 0) {
+            Object['define' + 'Property'](target, property, desc);
+            desc = null;
+        }
+
+        return desc;
+    }
+
+    function _initializerWarningHelper(descriptor, context) {
+        throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+    }
+
+    var _dec, _class, _desc, _value, _class2, _descriptor;
+
+    var StageRenderer = exports.StageRenderer = (_dec = (0, _aureliaFramework.inject)(_navigationService.NavigationService, _aureliaEventAggregator.EventAggregator), _dec(_class = (_class2 = function () {
+        function StageRenderer(navigationService, EventAggregator) {
+            _classCallCheck(this, StageRenderer);
+
+            _initDefineProp(this, 'sectionId', _descriptor, this);
+
+            this.navigationActive = false;
+            this.navigationService = navigationService;
+            this.eventAggregator = EventAggregator;
+            this.eventAggregator.subscribe('showFade', function (response) {
+                if (!response.active) {
+                    this.navigationActive = false;
+                }
+            }.bind(this));
+        }
+
+        StageRenderer.prototype.navigateTo = function navigateTo(navigatePath) {
+            this.navigationService.navigateToPage(navigatePath);
+            this.eventAggregator.publish('showFade', { active: false });
+        };
+
+        _createClass(StageRenderer, [{
+            key: 'currentItem',
+            get: function get() {
+                return this.navigationService.page;
+            }
+        }, {
+            key: 'section',
+            get: function get() {
+                return this.navigationService.getSectionForPath(this.sectionId);
+            }
+        }]);
+
+        return StageRenderer;
+    }(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'sectionId', [_aureliaFramework.bindable], {
+        enumerable: true,
+        initializer: null
+    })), _class2)) || _class);
+});
+define('slideshow/slideshow',["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var Slideshow = exports.Slideshow = function Slideshow() {
+    _classCallCheck(this, Slideshow);
+  };
+});
 define('text!app.html', ['module'], function(module) { module.exports = "<template><require from=\"./app.css\"></require><require from=\"./page/page\"></require><require from=\"header/header\"></require><div class=\"all\"><header></header><page></page></div><div click.trigger=\"hideFade()\" class.bind=\"showFade ? 'fade' : ''\"></div></template>"; });
-define('text!app.css', ['module'], function(module) { module.exports = "html {\n  font-size: 10px;\n  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\n  height: 100%; }\n\nbody {\n  background: linear-gradient(0deg, #9c9, #9cf);\n  font-size: 12px;\n  height: 100%;\n  margin: 1.2rem; }\n\n.fade {\n  z-index: 999;\n  background: rgba(0, 0, 0, 0.3);\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0; }\n"; });
+define('text!app.css', ['module'], function(module) { module.exports = "html {\n  font-size: 10px;\n  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\n  height: 100%; }\n\nbody {\n  background: linear-gradient(0deg, #9c9, #9cf);\n  background-image: url(\"/src/images/europa_final.jpg\");\n  background-size: cover;\n  font-size: 12px;\n  height: 100%;\n  margin: 1.2rem; }\n\n.fade {\n  z-index: 999;\n  background: rgba(0, 0, 0, 0.3);\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0; }\n"; });
 define('text!header/header.html', ['module'], function(module) { module.exports = "<template><require from=\"./header.css\"></require><require from=\"navigation/navigation\"></require><div class=\"header\"><navigation></navigation><h1 class=\"title\">Eurotour 2010</h1><div class=\"step\"><div class=\"back\">-</div><div class=\"forward\">+</div></div></div></template>"; });
-define('text!navigation/navigation.html', ['module'], function(module) { module.exports = "<template><require from=\"./navigation.css\"></require><require from=\"./section/default\"></require><nav><div click.delegate=\"toggleNavigation()\">NAV</div><div class.bind=\"navigationVisible ? 'active navigation' : 'navigation'\"><div repeat.for=\"section of sections  | keys\" class=\"section ${section == currentSection?'active':''}\"><h1>${'navigation:' + section | t}</h1><default section-id.bind=\"section\" section.bind=\"sections[section]\" navigateto.bind=\"navigateTo\"></default></div></div></nav></template>"; });
-define('text!header/header.css', ['module'], function(module) { module.exports = ".header {\n  background: rgba(255, 255, 255, 0.4);\n  line-height: 3rem;\n  border-radius: 21px;\n  margin: 6px;\n  padding: 6px 12px;\n  display: flex;\n  justify-content: space-between; }\n  .header .title {\n    margin: 0; }\n  .header .back, .header .forward {\n    display: inline-block;\n    width: 3rem;\n    height: 3rem; }\n"; });
-define('text!page/page.html', ['module'], function(module) { module.exports = "<template><require from=\"./page.css\"></require><div class=\"page\"><h2>${navigationService.currentPage.etap}</h2><h1>${navigationService.currentPage.headline}</h1><p innerhtml=\"${navigationService.currentPage.text | sanitizeHTML}\"></p><div>${navigationService.currentPage.date}</div><div><span>${'common:distance' | t:{distance: navigationService.currentPage.distance}}</span> <span>${'common:height_meter' | t:{hm: navigationService.currentPage.hm}}</span></div></div></template>"; });
-define('text!navigation/navigation.css', ['module'], function(module) { module.exports = "nav {\n  position: relative;\n  z-index: 1000; }\n\n.navigation {\n  box-shadow: 0 0 1px #999 inset;\n  padding: 12px;\n  color: #000;\n  background: rgba(255, 255, 255, 0.95);\n  border-radius: .6rem;\n  display: none;\n  position: absolute;\n  top: 100%;\n  z-index: 9999;\n  justify-content: space-between; }\n  .navigation.active {\n    display: flex; }\n  .navigation .section {\n    margin: 1.2rem; }\n    .navigation .section h1 {\n      margin: 0 0 .6rem; }\n  .navigation .item {\n    cursor: pointer;\n    font-weight: bold; }\n    .navigation .item.active {\n      color: red; }\n"; });
-define('text!page/page.css', ['module'], function(module) { module.exports = ".page {\n  padding: 12px;\n  display: inline-block;\n  background: rgba(255, 255, 255, 0.6);\n  border-radius: .6rem; }\n  .page h1 {\n    font-size: 1.6rem; }\n  .page h2 {\n    font-size: 1.2rem; }\n"; });
+define('text!navigation/navigation.html', ['module'], function(module) { module.exports = "<template><require from=\"./navigation.css\"></require><require from=\"./section/default\"></require><require from=\"./section/stageRenderer\"></require><nav><div click.delegate=\"toggleNavigation()\">NAV</div><div class.bind=\"navigationVisible ? 'active navigation' : 'navigation'\"><div repeat.for=\"section of sections  | keys\" class=\"section ${section == currentSection?'active':''}\"><h1>${'navigation:' + section | t}</h1><default if.bind=\"['article', 'prolog'].includes(section)\" section-id.bind=\"section\" section.bind=\"sections[section]\" navigateto.bind=\"navigateTo\"></default><stage-renderer if.bind=\"['etap'].includes(section)\" section-id.bind=\"section\" section.bind=\"sections[section]\" navigateto.bind=\"navigateTo\"></stage-renderer></div></div></nav></template>"; });
+define('text!header/header.css', ['module'], function(module) { module.exports = ".header {\n  background: rgba(255, 255, 255, 0.9);\n  line-height: 3rem;\n  border-radius: 21px;\n  margin: 6px;\n  padding: 6px 12px;\n  display: flex;\n  justify-content: space-between; }\n  .header .title {\n    margin: 0; }\n  .header .back, .header .forward {\n    display: inline-block;\n    width: 3rem;\n    height: 3rem; }\n"; });
+define('text!page/page.html', ['module'], function(module) { module.exports = "<template><require from=\"./page.css\"></require><require from=\"../slideshow/slideshow\"></require><div class=\"page\"><div class=\"report flexChild\"><h2>${navigationService.currentPage.etap}</h2><h1>${navigationService.currentPage.headline}</h1><p innerhtml=\"${navigationService.currentPage.text | sanitizeHTML}\"></p><div>${navigationService.currentPage.date}</div><div><span>${'common:distance' | t:{distance: navigationService.currentPage.distance}}</span> <span>${'common:height_meter' | t:{hm: navigationService.currentPage.hm}}</span></div></div><slideshow class=\"flexChild slideshowContainer\"></slideshow></div></template>"; });
+define('text!navigation/navigation.css', ['module'], function(module) { module.exports = "nav {\n  position: relative;\n  z-index: 1000; }\n\n.navigation {\n  box-shadow: 0 0 1px #999 inset;\n  padding: 12px;\n  color: #000;\n  background: rgba(255, 255, 255, 0.95);\n  border-radius: .6rem;\n  display: flex;\n  visibility: hidden;\n  position: absolute;\n  top: 100%;\n  z-index: 9999;\n  justify-content: space-between;\n  opacity: 0;\n  transition: all 1s; }\n  .navigation.active {\n    visibility: visible;\n    opacity: 1; }\n  .navigation .section {\n    margin: 0 6rem 0 1.2rem;\n    padding-left: 1rem;\n    box-shadow: -2px 0 0 #000; }\n    .navigation .section h1 {\n      margin: 0 0 .6rem; }\n  .navigation .item {\n    cursor: pointer;\n    font-weight: bold; }\n    .navigation .item.active {\n      color: red; }\n"; });
+define('text!page/page.css', ['module'], function(module) { module.exports = ".page {\n  background: rgba(255, 255, 255, 0.6);\n  border-radius: .6rem;\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  padding: 0 3rem; }\n  .page > .flexChild {\n    flex: 1 0 32rem;\n    padding: 1rem; }\n  .page .report {\n    font-size: 12px;\n    text-align: justify; }\n    @media only screen and (min-width: 768px) {\n      .page .report {\n        font-size: 13px; } }\n    @media only screen and (min-width: 1280px) {\n      .page .report {\n        font-size: 14px; } }\n  .page .slideshowContainer {\n    flex-grow: 4;\n    flex-basis: 50vw; }\n  .page h1 {\n    font-size: 1.6rem;\n    text-align: right; }\n  .page h2 {\n    font-size: 1.2rem; }\n"; });
 define('text!navigation/section/default.html', ['module'], function(module) { module.exports = "<template><div class=\"items\"><div repeat.for=\"item of section\" click.trigger=\"navigateTo([sectionId, $index])\" class=\"item ${currentItem == item?'active':''}\">${item.title}</div></div></template>"; });
 define('text!navigation/section/default.css', ['module'], function(module) { module.exports = ""; });
+define('text!navigation/section/stagesRenderer.html', ['module'], function(module) { module.exports = "<template>Stage Rendere</template>"; });
+define('text!navigation/section/stageRenderer.css', ['module'], function(module) { module.exports = ".item_stage {\n  padding: 0 .6rem;\n  display: inline; }\n"; });
+define('text!navigation/section/stageRenderer.html', ['module'], function(module) { module.exports = "<template><require from=\"./stageRenderer.css\"></require><div class=\"items\"><div class=\"item item_stage\" repeat.for=\"item of section\" click.trigger=\"navigateTo([sectionId, $index])\" class=\"item ${currentItem == item?'active':''}\">${$index}</div></div></template>"; });
+define('text!slideshow/slideshow.html', ['module'], function(module) { module.exports = "<template><require from=\"./slideshow.css\"></require><div class=\"slideshow\"><div class=\"slideshow_content\">Slideshow</div><img src=\"data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\" alt=\"\" width=\"100%\"></div></template>"; });
+define('text!slideshow/slideshow.css', ['module'], function(module) { module.exports = ".slideshow {\n  position: relative; }\n  .slideshow::after {\n    content: url(\"data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\");\n    display: block;\n    width: 100%; }\n  .slideshow .slideshow_content {\n    background: lightcoral;\n    position: absolute;\n    display: flex;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0; }\n"; });
 //# sourceMappingURL=app-bundle.js.map
