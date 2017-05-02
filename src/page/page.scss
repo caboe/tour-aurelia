@@ -1,10 +1,12 @@
 .page {
-  background: rgba(256, 256, 256, .6);
-  border-radius: .6rem;
+  background: rgba(256, 256, 256, .8);
+  border-radius: 3rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  padding: 0 3rem;
+  padding: 1.5rem 2rem;
+  margin: 3rem 2rem;
+  box-shadow: 1px 1px 6px #999;
 
   > .flexChild {
     flex: 1 0 32rem;
@@ -14,6 +16,8 @@
   .report {
     font-size: 12px;
     text-align: justify;
+    max-width: 480px;
+    margin: 0 auto;
 
     @media only screen and (min-width: 768px) {
       font-size: 13px;

@@ -11,9 +11,26 @@
     margin: 0;
   }
 
-  .back, .forward {
+  .back, .forward, .hamburger {
     display: inline-block;
     width: 3rem;
     height: 3rem;
+    box-shadow: -2px -2px 7px 1px forestgreen inset;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 28px;
+    margin-left: 1rem;
+    background-color: forestgreen;
+    color: white;
+    font-weight: bold;
+    line-height: 23px;
+  }
+
+  .hamburger {
+    width: auto;
+    border-radius: 1.5rem;
+    font-size: 18px;
+    padding: 0 3rem;
+    line-height: 3rem;
   }
 }

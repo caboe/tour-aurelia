@@ -17,6 +17,8 @@ nav {
   justify-content: space-between;
   opacity: 0;
   transition: all 1s;
+  font-size: 14px;
+  text-align: left;
 
   &.active {
     visibility: visible;

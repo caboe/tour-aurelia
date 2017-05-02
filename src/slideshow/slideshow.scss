@@ -1,19 +1,23 @@
 .slideshow {
   position: relative;
 
-  &::after {
-    content: url("data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==");
+  .squareImage {
+    max-height: 85vh;
     display: block;
     width: 100%;
+    opacity: 0;
   }
 
   .slideshow_content {
-    background: lightcoral;
+    background: rgba(0, 0, 0, .6);
+    border-radius: 2rem;
+    padding: 3rem;
     position: absolute;
     display: flex;
-    top:0;
+    top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+    box-shadow: 0px 0px 6px #000 inset;
   }
 }
