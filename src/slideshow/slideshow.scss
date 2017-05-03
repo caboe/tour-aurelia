@@ -9,15 +9,32 @@
   }
 
   .slideshow_content {
-    background: rgba(0, 0, 0, .6);
-    border-radius: 2rem;
-    padding: 3rem;
+    background: linear-gradient(rgba(0,0,0, 0), rgba(255, 255, 255, 0.1));
     position: absolute;
     display: flex;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    box-shadow: 0px 0px 6px #000 inset;
+    overflow: hidden;
+
+    &:after, &:before {
+      content: "";
+      position: absolute;
+      right: 0;
+      left: auto;
+      /* bottom: 0; */
+      /* width: 120%; */
+      width: 10px;
+      top: -50%;
+      bottom: -50%;
+      background: radial-gradient(ellipse at 140% 50%, rgba(0, 0, 0, 1), rgba(255, 255, 255, 0) 40%);
+    }
+
+    &:before {
+      left: 0;
+      right: auto;
+      background: radial-gradient(ellipse at -40% 50%, rgba(0, 0, 0, 1), rgba(255, 255, 255, 0) 40%);
+    }
   }
 }

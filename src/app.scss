@@ -2,20 +2,22 @@ html {
   font-size: 10px;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   height: 100%;
+  background: linear-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 309, 0.5)), url('/src/images/europa_final.jpg');
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 body {
-  background: linear-gradient(0deg, #9c9, #9cf);
-  background-image: url('/src/images/europa_final.jpg');
-  background-size: cover;
+  //background: linear-gradient(rgba(252, 252, 252, 0.9), rgba(255, 255, 255, 0.9));
   font-size: 12px;
   height: 100%;
-  margin: 1.2rem;
+  margin: 0;
+
 }
 
 .fade {
   z-index: 999;
-  background: rgba(0,0,0,.3);
+  background: rgba(0,0,0,.01);
   position: absolute;
   top: 0;
   right: 0;
