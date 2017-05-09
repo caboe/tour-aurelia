@@ -17,9 +17,34 @@
     bottom: 0;
     left: 0;
     overflow: hidden;
-    box-shadow: 0 1px 6px -3px rgba(40,40,40,.9) inset;
+    box-shadow: 0 1px 6px -3px rgba(40, 40, 40, .9) inset;
     border-radius: .5rem;
 
+  }
+
+  .slide {
+    position: absolute;
+    display: flex;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: rgba(255,255,255,.9);
+    border: 5px solid #fff;
+  }
+
+  .slideShadow {
+    position: absolute;
+    display: flex;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 0 7px -2px #000 inset;
+    border-radius: 4px;
 
     &:after, &:before {
       content: "";
