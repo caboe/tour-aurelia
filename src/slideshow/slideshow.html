@@ -1,8 +1,15 @@
 <template>
     <require from="./slideshow.css"></require>
     <div class="slideshow">
-        <div class="slideshow_content" style="background-position:center;background-size: contain;background-repeat:no-repeat;">
+        <div class="slideshow_content"
+             style="background-position:center;background-size: contain;background-repeat:no-repeat;">
+            <div if.bind="!imageService.ready">Loading</div>
+            <div repeat.for="params of imageService.currentStage">
+                <img src="http://farm${params.farm}.static.flickr.com/${params.server}/${params.id}_${params.secret}_b.jpg">
+            </div>
         </div>
-        <img class="squareImage" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="">
+        <img class="squareImage"
+             src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+             alt="">
     </div>
 </template>

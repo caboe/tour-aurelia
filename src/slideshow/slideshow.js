@@ -1,4 +1,11 @@
-export class Slideshow{
+import {inject} from 'aurelia-framework';
+import {ImageService} from 'image-service';
 
-    //https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&photoset_id=" + setId + "&api_key=531e7a0d62fe823d91b9ebcfca750195&format=json&jsoncallback=tour.images.fillStageIndex
+@inject (ImageService)
+export class Slideshow {
+    constructor(imageService){
+        this.imageService = imageService;
+        this.collection = this.imageService.currentStage;
+        this.imageService.setCurrentCollection(0);
+    }
 }
