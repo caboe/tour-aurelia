@@ -5,10 +5,11 @@
              src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
              alt="">
         <div class="slideshow_content"
-             style="background-position:center;background-size: contain;background-repeat:no-repeat;">
-            <div if.bind="!imageService.ready">Loading</div>
+             css="left: -${current * 100}%">
+            <div if.bind="loading">Loading</div>
             <div repeat.for="params of imageService.currentStage" class="slide"
-                 style="background-image: url(http://farm${params.farm}.static.flickr.com/${params.server}/${params.id}_${params.secret}_b.jpg);">
+                 css="left: ${$index * 100}%;background-image: url(http://farm${params.farm}.static.flickr.com/${params.server}/${params.id}_${params.secret}_b.jpg);">
+                <div class="description">${params.title}</div>
             </div>
         </div>
         <div class="slideShadow"></div>

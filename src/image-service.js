@@ -1,7 +1,11 @@
+import { inject } from 'aurelia-framework';
+import { EventAggregator } from 'aurelia-event-aggregator';
 import {HttpClient} from 'aurelia-http-client';
 
+@inject(EventAggregator)
 export class ImageService {
-    constructor() {
+    constructor(eventAggregator) {
+        this.eventAggregator = eventAggregator;
         this.ready = false;
         this.loadCollections();
         this.currentStage = [];
@@ -16,7 +20,6 @@ export class ImageService {
             .then(data => {
                 this.collection = data.response;
                 this.refreshCurrentCollection();
-                this.loadCurrentStage();
                 this.ready = true;//??
             });
     }
@@ -31,6 +34,7 @@ export class ImageService {
         client.jsonp(`https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&photoset_id=${setId}&api_key=531e7a0d62fe823d91b9ebcfca750195&format=json&json`)
             .then(data => {
                 this.currentStage = data.response.photoset.photo;
+                this.eventAggregator.publish('stage', {imageLoad: 'finished'});
             });
         // var url = "https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&photoset_id=" + setId + "&api_key=531e7a0d62fe823d91b9ebcfca750195&format=json&jsoncallback=tour.images.fillStageIndex"
 

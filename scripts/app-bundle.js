@@ -43,7 +43,7 @@ define('environment',["exports"], function (exports) {
     testing: true
   };
 });
-define('image-service',['exports', 'aurelia-http-client'], function (exports, _aureliaHttpClient) {
+define('image-service',['exports', 'aurelia-framework', 'aurelia-event-aggregator', 'aurelia-http-client'], function (exports, _aureliaFramework, _aureliaEventAggregator, _aureliaHttpClient) {
     'use strict';
 
     Object.defineProperty(exports, "__esModule", {
@@ -57,10 +57,13 @@ define('image-service',['exports', 'aurelia-http-client'], function (exports, _a
         }
     }
 
-    var ImageService = exports.ImageService = function () {
-        function ImageService() {
+    var _dec, _class;
+
+    var ImageService = exports.ImageService = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregator.EventAggregator), _dec(_class = function () {
+        function ImageService(eventAggregator) {
             _classCallCheck(this, ImageService);
 
+            this.eventAggregator = eventAggregator;
             this.ready = false;
             this.loadCollections();
             this.currentStage = [];
@@ -76,7 +79,6 @@ define('image-service',['exports', 'aurelia-http-client'], function (exports, _a
             client.jsonp('https://api.flickr.com/services/rest/?method=flickr.collections.getTree&user_id=24537538@N04&api_key=531e7a0d62fe823d91b9ebcfca750195&collection_id=72157624746422138&format=json').then(function (data) {
                 _this.collection = data.response;
                 _this.refreshCurrentCollection();
-                _this.loadCurrentStage();
                 _this.ready = true;
             });
         };
@@ -93,6 +95,7 @@ define('image-service',['exports', 'aurelia-http-client'], function (exports, _a
 
             client.jsonp('https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&photoset_id=' + setId + '&api_key=531e7a0d62fe823d91b9ebcfca750195&format=json&json').then(function (data) {
                 _this2.currentStage = data.response.photoset.photo;
+                _this2.eventAggregator.publish('stage', { imageLoad: 'finished' });
             });
         };
 
@@ -111,7 +114,7 @@ define('image-service',['exports', 'aurelia-http-client'], function (exports, _a
         };
 
         return ImageService;
-    }();
+    }()) || _class);
 });
 define('main',['exports', './environment', 'aurelia-i18n', 'i18next-xhr-backend'], function (exports, _environment, _aureliaI18n, _i18nextXhrBackend) {
     'use strict';
@@ -494,7 +497,7 @@ define('resources/index',["exports"], function (exports) {
   exports.configure = configure;
   function configure(config) {}
 });
-define('slideshow/slideshow',['exports', 'aurelia-framework', 'image-service'], function (exports, _aureliaFramework, _imageService) {
+define('slideshow/slideshow',['exports', 'aurelia-framework', 'aurelia-event-aggregator', 'image-service'], function (exports, _aureliaFramework, _aureliaEventAggregator, _imageService) {
     'use strict';
 
     Object.defineProperty(exports, "__esModule", {
@@ -510,13 +513,43 @@ define('slideshow/slideshow',['exports', 'aurelia-framework', 'image-service'], 
 
     var _dec, _class;
 
-    var Slideshow = exports.Slideshow = (_dec = (0, _aureliaFramework.inject)(_imageService.ImageService), _dec(_class = function Slideshow(imageService) {
-        _classCallCheck(this, Slideshow);
+    var Slideshow = exports.Slideshow = (_dec = (0, _aureliaFramework.inject)(_imageService.ImageService, _aureliaEventAggregator.EventAggregator), _dec(_class = function () {
+        function Slideshow(imageService, eventAggregrator) {
+            var _this2 = this;
 
-        this.imageService = imageService;
-        this.collection = this.imageService.currentStage;
-        this.imageService.setCurrentCollection(0);
-    }) || _class);
+            _classCallCheck(this, Slideshow);
+
+            this.eventAggregrator = eventAggregrator;
+            this.imageService = imageService;
+            this.collection = this.imageService.currentStage;
+            this.imageService.setCurrentCollection(0);
+            this.loading = true;
+            this.current = 0;
+            this.slidePosition = 0;
+            this.tick;
+            this.eventAggregrator.subscribe('stage', function () {
+                return _this2.initSlideshow();
+            });
+        }
+
+        Slideshow.prototype.initSlideshow = function initSlideshow() {
+            this.collection = this.imageService.currentStage;
+
+            var _this = this;
+            this.tick = window.setInterval(function () {
+                return _this.nextImage.call(_this);
+            }, 3000);
+            this.loading = false;
+        };
+
+        Slideshow.prototype.nextImage = function nextImage() {
+            console.log(this.current);
+            this.current += 1;
+            if (this.current >= this.collection.length) this.current = 0;
+        };
+
+        return Slideshow;
+    }()) || _class);
 });
 define('navigation/section/default',['exports', 'aurelia-framework', 'navigation-service', 'aurelia-event-aggregator'], function (exports, _aureliaFramework, _navigationService, _aureliaEventAggregator) {
     'use strict';
@@ -751,17 +784,17 @@ define('navigation/section/stageRenderer',['exports', 'aurelia-framework', 'navi
     })), _class2)) || _class);
 });
 define('text!app.html', ['module'], function(module) { module.exports = "<template><require from=\"./app.css\"></require><require from=\"./page/page\"></require><require from=\"header/header\"></require><div class=\"all\"><header></header><page></page></div><div click.trigger=\"hideFade()\" class.bind=\"showFade ? 'fade' : ''\"></div></template>"; });
-define('text!app.css', ['module'], function(module) { module.exports = "html {\n  font-size: 10px;\n  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\n  height: 100%;\n  background: linear-gradient(rgba(155, 155, 155, 0.1), rgba(155, 155, 155, 0.4)), url(\"/src/images/europa_final.jpg\");\n  background-size: cover;\n  background-attachment: fixed; }\n\nbody {\n  font-size: 12px;\n  height: 100%;\n  margin: 0; }\n\n.fade {\n  z-index: 999;\n  background: rgba(0, 0, 0, 0.01);\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0; }\n\na {\n  text-decoration: none;\n  color: forestgreen; }\n"; });
 define('text!header/header.html', ['module'], function(module) { module.exports = "<template><require from=\"./header.css\"></require><require from=\"navigation/navigation\"></require><div class=\"header\"><navigation class=\"hamburger\"></navigation><h1 class=\"title\">Eurotour 2010</h1><div class=\"step\"><div class=\"back\">-</div><div class=\"forward\">+</div></div></div></template>"; });
+define('text!app.css', ['module'], function(module) { module.exports = "html {\n  font-size: 10px;\n  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\n  height: 100%;\n  background: linear-gradient(rgba(155, 155, 155, 0.1), rgba(155, 155, 155, 0.4)), url(\"/src/images/europa_final.jpg\");\n  background-size: cover;\n  background-attachment: fixed; }\n\nbody {\n  font-size: 12px;\n  height: 100%;\n  margin: 0; }\n\n.fade {\n  z-index: 999;\n  background: rgba(0, 0, 0, 0.01);\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0; }\n\na {\n  text-decoration: none;\n  color: forestgreen; }\n"; });
 define('text!header/header.css', ['module'], function(module) { module.exports = ".header {\n  line-height: 3rem;\n  margin: 1rem 0 1rem;\n  padding: 1rem 2rem;\n  display: flex;\n  justify-content: space-between;\n  position: relative;\n  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);\n  background-image: linear-gradient(rgba(252, 252, 252, 0.9), rgba(255, 255, 255, 0.9)); }\n  .header .title {\n    margin: 0; }\n  .header .back, .header .forward, .header .hamburger {\n    display: inline-block;\n    width: 3rem;\n    height: 3rem;\n    border-radius: 50%;\n    text-align: center;\n    font-size: 28px;\n    margin-left: 1rem;\n    background-color: rgba(255, 255, 255, 0.7);\n    color: #533;\n    font-weight: bold;\n    line-height: 23px; }\n  .header .hamburger {\n    width: auto;\n    border-radius: 1.5rem;\n    font-size: 18px;\n    padding: 0 3rem;\n    line-height: 3rem; }\n"; });
-define('text!navigation/navigation.css', ['module'], function(module) { module.exports = "nav {\n  position: relative;\n  z-index: 1000; }\n\n.navigation {\n  box-shadow: 0 0 1px #999 inset;\n  padding: 12px;\n  color: #000;\n  background: rgba(255, 255, 255, 0.95);\n  border-radius: .6rem;\n  display: flex;\n  visibility: hidden;\n  position: absolute;\n  top: 100%;\n  z-index: 9999;\n  justify-content: space-between;\n  opacity: 0;\n  transition: all 1s;\n  font-size: 14px;\n  text-align: left; }\n  .navigation.active {\n    visibility: visible;\n    opacity: 1; }\n  .navigation .section {\n    margin: 0 6rem 0 1.2rem;\n    padding-left: 1rem;\n    box-shadow: -2px 0 0 #000; }\n    .navigation .section h1 {\n      margin: 0 0 .6rem; }\n  .navigation .item {\n    cursor: pointer;\n    font-weight: bold; }\n    .navigation .item.active {\n      color: red; }\n"; });
 define('text!navigation/navigation.html', ['module'], function(module) { module.exports = "<template><require from=\"./navigation.css\"></require><require from=\"./section/default\"></require><require from=\"./section/stageRenderer\"></require><nav><div click.delegate=\"toggleNavigation()\">NAV</div><div class.bind=\"navigationVisible ? 'active navigation' : 'navigation'\"><div repeat.for=\"section of sections  | keys\" class=\"section ${section == currentSection?'active':''}\"><h1>${'navigation:' + section | t}</h1><default if.bind=\"['article', 'prolog'].includes(section)\" section-id.bind=\"section\" section.bind=\"sections[section]\" navigateto.bind=\"navigateTo\"></default><stage-renderer if.bind=\"['etap'].includes(section)\" section-id.bind=\"section\" section.bind=\"sections[section]\" navigateto.bind=\"navigateTo\"></stage-renderer></div></div></nav></template>"; });
+define('text!navigation/navigation.css', ['module'], function(module) { module.exports = "nav {\n  position: relative;\n  z-index: 1000; }\n\n.navigation {\n  box-shadow: 0 0 1px #999 inset;\n  padding: 12px;\n  color: #000;\n  background: rgba(255, 255, 255, 0.95);\n  border-radius: .6rem;\n  display: flex;\n  visibility: hidden;\n  position: absolute;\n  top: 100%;\n  z-index: 9999;\n  justify-content: space-between;\n  opacity: 0;\n  transition: all 1s;\n  font-size: 14px;\n  text-align: left; }\n  .navigation.active {\n    visibility: visible;\n    opacity: 1; }\n  .navigation .section {\n    margin: 0 6rem 0 1.2rem;\n    padding-left: 1rem;\n    box-shadow: -2px 0 0 #000; }\n    .navigation .section h1 {\n      margin: 0 0 .6rem; }\n  .navigation .item {\n    cursor: pointer;\n    font-weight: bold; }\n    .navigation .item.active {\n      color: red; }\n"; });
 define('text!page/page.html', ['module'], function(module) { module.exports = "<template><require from=\"./page.css\"></require><require from=\"../slideshow/slideshow\"></require><div class=\"page\"><div class=\"report flexChild\"><h2>${navigationService.currentPage.etap}</h2><h1>${navigationService.currentPage.headline}</h1><p innerhtml=\"${navigationService.currentPage.text | sanitizeHTML}\"></p><div>${navigationService.currentPage.date}</div><div><span>${'common:distance' | t:{distance: navigationService.currentPage.distance}}</span> <span>${'common:height_meter' | t:{hm: navigationService.currentPage.hm}}</span></div></div><slideshow class=\"flexChild slideshowContainer\"></slideshow></div></template>"; });
 define('text!page/page.css', ['module'], function(module) { module.exports = ".page {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  margin: 3rem 4rem;\n  position: relative; }\n  .page:after, .page:before {\n    position: absolute;\n    right: 0;\n    left: auto;\n    /* bottom: 0; */\n    /* width: 120%; */\n    width: 10px;\n    top: -50%;\n    bottom: -50%;\n    background: radial-gradient(ellipse at 140% 50%, black, rgba(255, 255, 255, 0) 40%); }\n  .page:before {\n    left: 0;\n    right: auto;\n    background: radial-gradient(ellipse at -40% 50%, black, rgba(255, 255, 255, 0) 40%); }\n  .page > .flexChild {\n    flex: 1 0 30rem;\n    align-self: flex-start;\n    margin: 0 2rem 2rem; }\n  .page .report {\n    position: relative;\n    font-size: 12px;\n    text-align: justify;\n    max-width: 480px;\n    margin: 0 auto 2rem;\n    border-radius: 3px;\n    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);\n    background-image: linear-gradient(rgba(252, 255, 255, 0.9), white);\n    padding: 2rem; }\n    .page .report:after, .page .report:before {\n      content: \"\";\n      position: absolute;\n      right: auto;\n      left: 100%;\n      /* bottom: 0; */\n      /* width: 120%; */\n      width: 10px;\n      top: -50%;\n      bottom: -50%;\n      background: radial-gradient(ellipse at -30% 50%, black, rgba(255, 255, 255, 0) 40%); }\n    .page .report:before {\n      left: auto;\n      right: 100%;\n      background: radial-gradient(ellipse at 140% 50%, black, rgba(255, 255, 255, 0) 40%); }\n    @media only screen and (min-width: 768px) {\n      .page .report {\n        font-size: 13px; } }\n    @media only screen and (min-width: 1280px) {\n      .page .report {\n        font-size: 14px; } }\n  .page .slideshowContainer {\n    flex-grow: 4;\n    flex-basis: 50vw; }\n  .page h1 {\n    font-size: 1.6rem;\n    text-align: right; }\n  .page h2 {\n    font-size: 1.2rem; }\n"; });
-define('text!slideshow/slideshow.html', ['module'], function(module) { module.exports = "<template><require from=\"./slideshow.css\"></require><div class=\"slideshow\"><img class=\"squareImage\" src=\"data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\" alt=\"\"><div class=\"slideshow_content\" style=\"background-position:center;background-size:contain;background-repeat:no-repeat\"><div if.bind=\"!imageService.ready\">Loading</div><div repeat.for=\"params of imageService.currentStage\" class=\"slide\" style=\"background-image:url(http://farm${params.farm}.static.flickr.com/${params.server}/${params.id}_${params.secret}_b.jpg)\"></div></div><div class=\"slideShadow\"></div></div></template>"; });
+define('text!slideshow/slideshow.html', ['module'], function(module) { module.exports = "<template><require from=\"./slideshow.css\"></require><div class=\"slideshow\"><img class=\"squareImage\" src=\"data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\" alt=\"\"><div class=\"slideshow_content\" css=\"left: -${current * 100}%\"><div if.bind=\"loading\">Loading</div><div repeat.for=\"params of imageService.currentStage\" class=\"slide\" css=\"left: ${$index * 100}%;background-image: url(http://farm${params.farm}.static.flickr.com/${params.server}/${params.id}_${params.secret}_b.jpg);\"><div class=\"description\">${params.title}</div></div></div><div class=\"slideShadow\"></div></div></template>"; });
 define('text!navigation/section/default.html', ['module'], function(module) { module.exports = "<template><div class=\"items\"><div repeat.for=\"item of section\" click.trigger=\"navigateTo([sectionId, $index])\" class=\"item ${currentItem == item?'active':''}\">${item.title}</div></div></template>"; });
-define('text!navigation/section/stageRenderer.html', ['module'], function(module) { module.exports = "<template><require from=\"./stageRenderer.css\"></require><div class=\"items\"><div class=\"item item_stage\" repeat.for=\"item of section\" click.trigger=\"navigateTo([sectionId, $index])\" class=\"item ${currentItem == item?'active':''}\">${$index}</div></div></template>"; });
-define('text!slideshow/slideshow.css', ['module'], function(module) { module.exports = ".slideshow {\n  position: relative; }\n  .slideshow .squareImage {\n    max-height: 85vh;\n    display: block;\n    width: 100%;\n    opacity: 0; }\n  .slideshow .slideshow_content {\n    background: url(https://c1.staticflickr.com/3/2828/34343751876_a1a0ee338f_k.jpg), linear-gradient(rgba(155, 235, 195, 0.1), rgba(155, 235, 195, 0.3));\n    position: absolute;\n    display: flex;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    overflow: hidden;\n    box-shadow: 0 1px 6px -3px rgba(40, 40, 40, 0.9) inset;\n    border-radius: .5rem; }\n  .slideshow .slide {\n    position: absolute;\n    display: flex;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background-position: center;\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-color: rgba(255, 255, 255, 0.9);\n    border: 5px solid #fff; }\n  .slideshow .slideShadow {\n    position: absolute;\n    display: flex;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    box-shadow: 0 0 7px -2px #000 inset;\n    border-radius: 4px; }\n    .slideshow .slideShadow:after, .slideshow .slideShadow:before {\n      content: \"\";\n      position: absolute;\n      right: 0;\n      left: auto;\n      /* bottom: 0; */\n      /* width: 120%; */\n      width: 10px;\n      top: -50%;\n      bottom: -50%;\n      background: radial-gradient(ellipse at 140% 50%, black, rgba(255, 255, 255, 0) 40%); }\n    .slideshow .slideShadow:before {\n      left: 0;\n      right: auto;\n      background: radial-gradient(ellipse at -40% 50%, black, rgba(255, 255, 255, 0) 40%); }\n"; });
+define('text!slideshow/slideshow.css', ['module'], function(module) { module.exports = ".slideshow {\n  position: relative;\n  overflow: hidden;\n  border-radius: .5rem; }\n  .slideshow .squareImage {\n    max-height: 85vh;\n    display: block;\n    width: 100%;\n    opacity: 0; }\n  .slideshow .slideshow_content {\n    position: absolute;\n    display: block;\n    top: 0;\n    right: auto;\n    bottom: 0;\n    left: 0;\n    width: 100%;\n    overflow: visible;\n    box-shadow: 0 1px 6px -3px rgba(40, 40, 40, 0.9) inset;\n    border-radius: .5rem;\n    background-position: center;\n    background-size: contain;\n    background-repeat: no-repeat;\n    transition: left 1s; }\n  .slideshow .slide {\n    display: flex;\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-position: center;\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-color: rgba(255, 255, 255, 0.9);\n    border: 5px solid #fff;\n    box-sizing: border-box; }\n  .slideshow .description {\n    background-color: rgba(0, 0, 0, 0.6);\n    color: #fff;\n    font-size: 1.4rem;\n    padding: 1rem 2rem;\n    position: absolute;\n    left: -5px;\n    right: -5px;\n    bottom: -5px; }\n  .slideshow .slideShadow {\n    position: absolute;\n    display: flex;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    box-shadow: 0 0 7px -2px #000 inset;\n    border-radius: 4px; }\n    .slideshow .slideShadow:after, .slideshow .slideShadow:before {\n      content: \"\";\n      position: absolute;\n      right: 0;\n      left: auto;\n      /* bottom: 0; */\n      /* width: 120%; */\n      width: 10px;\n      top: -50%;\n      bottom: -50%;\n      background: radial-gradient(ellipse at 140% 50%, black, rgba(255, 255, 255, 0) 40%); }\n    .slideshow .slideShadow:before {\n      left: 0;\n      right: auto;\n      background: radial-gradient(ellipse at -40% 50%, black, rgba(255, 255, 255, 0) 40%); }\n"; });
 define('text!navigation/section/default.css', ['module'], function(module) { module.exports = ""; });
+define('text!navigation/section/stageRenderer.html', ['module'], function(module) { module.exports = "<template><require from=\"./stageRenderer.css\"></require><div class=\"items\"><div class=\"item item_stage\" repeat.for=\"item of section\" click.trigger=\"navigateTo([sectionId, $index])\" class=\"item ${currentItem == item?'active':''}\">${$index}</div></div></template>"; });
 define('text!navigation/section/stageRenderer.css', ['module'], function(module) { module.exports = ".item_stage {\n  padding: 0 .6rem;\n  display: inline; }\n"; });
 //# sourceMappingURL=app-bundle.js.map

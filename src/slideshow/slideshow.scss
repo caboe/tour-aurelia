@@ -1,5 +1,7 @@
 .slideshow {
   position: relative;
+  overflow: hidden;
+  border-radius: .5rem;
 
   .squareImage {
     max-height: 85vh;
@@ -9,33 +11,49 @@
   }
 
   .slideshow_content {
-    background: url(https://c1.staticflickr.com/3/2828/34343751876_a1a0ee338f_k.jpg), linear-gradient(rgba(155, 235, 195, 0.1), rgba(155, 235, 195, 0.3));
     position: absolute;
-    display: flex;
+    display: block;
     top: 0;
-    right: 0;
+    right: auto;
     bottom: 0;
     left: 0;
-    overflow: hidden;
+    width: 100%;
+    overflow: visible;
     box-shadow: 0 1px 6px -3px rgba(40, 40, 40, .9) inset;
     border-radius: .5rem;
-
+    background-position:center;
+    background-size: contain;
+    background-repeat:no-repeat;
+    transition: left 1s;
   }
 
   .slide {
-    position: absolute;
     display: flex;
+    position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
     background-color: rgba(255,255,255,.9);
     border: 5px solid #fff;
+    box-sizing: border-box;
   }
 
+  .description {
+    background-color: rgba(0,0,0,.6);
+    color: #fff;
+    font-size: 1.4rem;
+    padding: 1rem 2rem;
+    position: absolute;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+  }
   .slideShadow {
     position: absolute;
     display: flex;
