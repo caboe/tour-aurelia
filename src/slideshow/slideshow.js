@@ -18,14 +18,11 @@ export class Slideshow {
 
     initSlideshow(){
         this.collection = this.imageService.currentStage;
-        // debugger
-        let _this = this;
-        this.tick = window.setInterval(() => _this.nextImage.call(_this), 3000);
+        this.tick = window.setInterval(() => {this.nextImage()}, 3000);
         this.loading = false;
     }
 
     nextImage(){
-        console.log(this.current);
         this.current += 1;
         if (this.current >= this.collection.length)
             this.current = 0;
