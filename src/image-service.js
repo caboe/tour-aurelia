@@ -1,59 +1,88 @@
-import { inject } from 'aurelia-framework';
-import { EventAggregator } from 'aurelia-event-aggregator';
+import {inject} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import {HttpClient} from 'aurelia-http-client';
 
 @inject(EventAggregator)
 export class ImageService {
-    constructor(eventAggregator) {
-        this.eventAggregator = eventAggregator;
-        this.ready = false;
-        this.loadCollections();
-        this.currentStage = [];
-        this.currentNr = 0;
-        this.collection = {};
+  constructor(eventAggregator) {
+    this.eventAggregator = eventAggregator;
+    this.currentStage = [];
+    this.currentNr = 0;
+    this.collection = [];
+    this.loadCollections();
+  }
+
+  loadCollections() {
+    this.eventAggregator.publish('imageCollection', {state: 'load'});
+    let client = new HttpClient();
+
+    client.jsonp('https://api.flickr.com/services/rest/?method=flickr.collections.getTree&user_id=24537538@N04&api_key=531e7a0d62fe823d91b9ebcfca750195&collection_id=72157624746422138&format=json')
+      .then(data => {
+        // console.log(data.response.collections.collection[0].set)
+        this.collection = data.response.collections.collection[0].set;
+        this.refreshCurrentCollection();
+        this.eventAggregator.publish('imageCollection', {state: 'finished'});
+      });
+  }
+
+  loadCurrentStage() {
+    this.loadStage(this.currentNr);
+  }
+
+  loadStage(nr) {
+    if (!this.collection.length) {
+      return
     }
 
-    loadCollections() {
-        let client = new HttpClient();
+    const setId = this.getIdForStage(nr);
+    this.loadStageForId(setId);
+  }
 
-        client.jsonp('https://api.flickr.com/services/rest/?method=flickr.collections.getTree&user_id=24537538@N04&api_key=531e7a0d62fe823d91b9ebcfca750195&collection_id=72157624746422138&format=json')
-            .then(data => {
-                this.collection = data.response;
-                this.refreshCurrentCollection();
-                this.ready = true;//??
-            });
+  loadStageForId(id) {
+    this.eventAggregator.publish('imageStage', {state: 'load'});
+    let client = new HttpClient();
+    const escapeId = encodeURIComponent(id);
+    client.jsonp(`https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&photoset_id=${escapeId}&api_key=531e7a0d62fe823d91b9ebcfca750195&format=json&json`)
+      .then(data => {
+        this.currentStage = data.response.photoset.photo;
+        this.eventAggregator.publish('imageStage', {state: 'finished'});
+        this.loadImagesDescriptions();
+      });
+  }
+
+  loadImagesDescriptions() {
+    for (let image of this.currentStage){
+      loadImageForId(image.id)
     }
 
-    loadCurrentStage(){
-        this.loadStage(this.currentNr);
+    function loadImageForId(id) {
+      let client = new HttpClient();
+      client.jsonp(`https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&photo_id=${id}&api_key=531e7a0d62fe823d91b9ebcfca750195&format=json&jsoncallback=tour.images.addInfo`)
+        .then(data => {
+          console.log(data.response.photo);
+        })
     }
-    loadStage(nr){
-        const setId = this.getIdForStage(nr);
-        let client = new HttpClient();
+  }
 
-        client.jsonp(`https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&photoset_id=${setId}&api_key=531e7a0d62fe823d91b9ebcfca750195&format=json&json`)
-            .then(data => {
-                this.currentStage = data.response.photoset.photo;
-                this.eventAggregator.publish('stage', {imageLoad: 'finished'});
-            });
-        // var url = "https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&photoset_id=" + setId + "&api_key=531e7a0d62fe823d91b9ebcfca750195&format=json&jsoncallback=tour.images.fillStageIndex"
+  getIdForStage(nr) {
+    return this.collection[nr].id;
+  }
 
+  refreshCurrentCollection() {
+    this.setCurrentCollection(this.currentNr);
+    console.log(this.currentStage);
+  }
+
+  setCurrentCollection(nr) {
+    this.currentNr = nr;
+    this.loadCurrentStage();
+  };
+
+  loadImagesForStageId(id) {
+    for (let stage of this.collection) {
+      if (stage.title === id) {
+        this.loadStageForId(stage.id);
+      }
     }
-    getIdForStage(nr){
-        return this.collection.collections.collection[0].set[nr].id;
-    }
-    refreshCurrentCollection() {
-        this.setCurrentCollection(this.currentNr);
-        console.log(this.currentStage);
-    }
-
-    setCurrentCollection(nr) {
-        this.currentNr = nr;
-        if (!this.collection.hasOwnProperty('collections'))
-            this.collection = [];
-        else
-            this.loadCurrentStage();
-    };
-
-
+  }
 }
